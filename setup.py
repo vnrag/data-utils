@@ -9,7 +9,6 @@ setup(
     packages=['data_utils'],
     install_requires=[
         'pandas',
-        'json >= 1.0',
         'urllib3',
         'boto3',
         'botocore'
