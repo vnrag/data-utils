@@ -3,9 +3,9 @@ import urllib3
 
 
 def create_token_url(app_id, app_secret):
-    url = f"https://graph.facebook.com/oauth/access_token?client_id=" \
-          f"{app_id}&client_secret={app_secret}&grant_type=" \
-          f"client_credentials"
+    url = f'https://graph.facebook.com/oauth/access_token?client_id=' \
+          f'{app_id}&client_secret={app_secret}&grant_type=' \
+          f'client_credentials'
     return url
 
 
