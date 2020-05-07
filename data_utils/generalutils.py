@@ -17,8 +17,7 @@ def get_unix_timestamp(provided_date):
 
 
 def get_fb_target_prefix(app_id):
-    target_prefix = [publishing_group, f'provider=facebook', f'app_id='
-                                        f'{app_id}', f'type=page_impressions']
+    target_prefix = [publishing_group, 'provider=facebook', f'app_id={app_id}', 'type=page_impressions']
     return target_prefix
 
 

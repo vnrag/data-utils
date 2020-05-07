@@ -3,16 +3,12 @@ import urllib3
 
 
 def create_token_url(app_id, app_secret):
-    url = f'https://graph.facebook.com/oauth/access_token?client_id=' \
-          f'{app_id}&client_secret={app_secret}&grant_type=' \
-          f'client_credentials'
+    url = f'https://graph.facebook.com/oauth/access_token?client_id={app_id}&client_secret={app_secret}&grant_type=client_credentials'
     return url
 
 
 def create_url_data(start, stop, access_token, api_token):
-    url = f'https://graph.facebook.com/v6.0/{api_token}/insights?pretty' \
-          f'=0&metric=page_impressions&since={start}&until={stop}&' \
-          f'access_token={access_token}'
+    url = f'https://graph.facebook.com/v6.0/{api_token}/insights?pretty=0&metric=page_impressions&since={start}&until={stop}&access_token={access_token}'
     return url
 
 
