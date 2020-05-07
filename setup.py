@@ -7,5 +7,11 @@ setup(
     license='VNR Verlag für die Deutsche Wirtschaft AG',
     url='git@github.com:vnrag/data-utils.git',
     packages=['data_utils'],
-    install_requires=['pandas','json','urllib3','boto3','botocore'] #external packages as dependencies
+    install_requires=[
+        'pandas',
+        'json >1',
+        'urllib3',
+        'boto3',
+        'botocore'
+    ] #external packages as dependencies
 )
