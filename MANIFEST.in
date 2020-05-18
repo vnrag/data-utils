@@ -1,2 +1,4 @@
 include data_utils/README.rst
 include data_utils/config/*.*
+
+exclude data_utils/test/*.*
