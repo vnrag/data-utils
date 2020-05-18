@@ -43,11 +43,10 @@ class S3Base(object):
 				Value of the parameter
 		"""
 		ssm_client = boto3.client('ssm', 'eu-central-1')
-		obj = ssm_client.get_parameter(
-			Name=name,
-			WithDecryption=False)
-
-		return obj['Parameter']['Value']
+		obj = ssm_client.get_parameter(Name=name, WithDecryption=False)
+		target_name = obj['Parameter']['Value'].encode()
+		
+		return target_name.decode('UTF-8')
 
 	def upload_parquet_to_s3(self, s3_uri, parquet_context):
 		"""Saves the provided Pandas Dataframe to the provided s3 URI in parquet format
