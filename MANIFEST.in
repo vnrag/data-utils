@@ -1,3 +1,2 @@
 include data_utils/README.rst
-include data_utils/config/config.json
-include data_utils/config/oct_visit.json
+include data_utils/config/*.*
