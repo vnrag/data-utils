@@ -1,0 +1,240 @@
+{
+    "data": [
+        {
+            "name": "page_fans_by_like_source",
+            "period": "day",
+            "values": [
+                {
+                    "value": {
+                        "Your Page": 1
+                    },
+                    "end_time": "2019-12-13T08:00:00+0000"
+                },
+                {
+                    "value": {
+                        "Search": 3,
+                        "Your Page": 15
+                    },
+                    "end_time": "2019-12-14T08:00:00+0000"
+                },
+                {
+                    "value": {
+                        "Search": 1,
+                        "Your Page": 1
+                    },
+                    "end_time": "2019-12-15T08:00:00+0000"
+                }
+            ],
+            "title": "Daily Like Sources",
+            "description": "Daily: This is a breakdown of the number of Page likes from the most common places where people can like your Page. (Total Count)",
+            "id": "1234567890\/insights\/page_fans_by_like_source\/day"
+        },
+        {
+            "name": "page_views_total",
+            "period": "day",
+            "values": [
+                {
+                    "value": 9,
+                    "end_time": "2019-12-13T08:00:00+0000"
+                },
+                {
+                    "value": 156,
+                    "end_time": "2019-12-14T08:00:00+0000"
+                },
+                {
+                    "value": 60,
+                    "end_time": "2019-12-15T08:00:00+0000"
+                }
+            ],
+            "title": "Daily Total views count per Page",
+            "description": "Daily: Total views count per Page",
+            "id": "1234567890\/insights\/page_views_total\/day"
+        },
+        {
+            "name": "page_fans_gender_age",
+            "period": "day",
+            "values": [
+                {
+                    "value": {
+                        "U.55-64": 5,
+                        "M.55-64": 306,
+                        "U.35-44": 7,
+                        "F.45-54": 7145,
+                        "M.18-24": 23,
+                        "M.35-44": 361,
+                        "F.25-34": 5988,
+                        "U.65+": 2,
+                        "M.25-34": 223,
+                        "U.45-54": 12,
+                        "F.13-17": 25,
+                        "F.65+": 1000,
+                        "F.55-64": 4355,
+                        "M.13-17": 1,
+                        "M.65+": 144,
+                        "F.35-44": 5918,
+                        "U.25-34": 7,
+                        "M.45-54": 447,
+                        "F.18-24": 983
+                    },
+                    "end_time": "2019-12-13T08:00:00+0000"
+                },
+                {
+                    "value": {
+                        "U.55-64": 5,
+                        "M.55-64": 307,
+                        "U.35-44": 7,
+                        "F.45-54": 7151,
+                        "M.18-24": 23,
+                        "M.35-44": 361,
+                        "F.25-34": 5988,
+                        "U.65+": 2,
+                        "M.25-34": 223,
+                        "U.45-54": 12,
+                        "F.13-17": 25,
+                        "F.65+": 1005,
+                        "F.55-64": 4357,
+                        "M.13-17": 1,
+                        "M.65+": 144,
+                        "F.35-44": 5920,
+                        "U.25-34": 7,
+                        "M.45-54": 446,
+                        "F.18-24": 982
+                    },
+                    "end_time": "2019-12-14T08:00:00+0000"
+                },
+                {
+                    "value": {
+                        "U.55-64": 5,
+                        "M.55-64": 307,
+                        "U.35-44": 7,
+                        "F.45-54": 7149,
+                        "M.18-24": 23,
+                        "M.35-44": 361,
+                        "F.25-34": 5985,
+                        "U.65+": 2,
+                        "M.25-34": 223,
+                        "U.45-54": 12,
+                        "F.13-17": 25,
+                        "F.65+": 1005,
+                        "F.55-64": 4358,
+                        "M.13-17": 1,
+                        "M.65+": 144,
+                        "F.35-44": 5924,
+                        "U.25-34": 7,
+                        "M.45-54": 446,
+                        "F.18-24": 982
+                    },
+                    "end_time": "2019-12-15T08:00:00+0000"
+                }
+            ],
+            "title": "Daily Page Engaged Users",
+            "description": "Daily: The number of people who engaged with your Page. Engagement includes any click or story created. (Unique Users)",
+            "id": "1234567890\/insights\/page_engaged_users\/day"
+        },
+        {
+            "name": "page_impressions_unique",
+            "period": "day",
+            "values": [
+                {
+                    "value": 11306,
+                    "end_time": "2019-12-13T08:00:00+0000"
+                },
+                {
+                    "value": 13938,
+                    "end_time": "2019-12-14T08:00:00+0000"
+                },
+                {
+                    "value": 13760,
+                    "end_time": "2019-12-15T08:00:00+0000"
+                }
+            ],
+            "title": "Daily Total Reach",
+            "description": "Daily: The number of people who had any content from your Page or about your Page enter their screen. This includes posts, check-ins, ads, social information from people who interact with your Page and more. (Unique Users)",
+            "id": "1234567890\/insights\/page_impressions_unique\/day"
+        },
+        {
+            "name": "page_views_total",
+            "period": "week",
+            "values": [
+                {
+                    "value": 95,
+                    "end_time": "2019-12-13T08:00:00+0000"
+                },
+                {
+                    "value": 226,
+                    "end_time": "2019-12-14T08:00:00+0000"
+                },
+                {
+                    "value": 273,
+                    "end_time": "2019-12-15T08:00:00+0000"
+                }
+            ],
+            "title": "Weekly Total views count per Page",
+            "description": "Weekly: Total views count per Page",
+            "id": "1234567890\/insights\/page_views_total\/week"
+        },
+        {
+            "name": "page_engaged_users",
+            "period": "week",
+            "values": [
+                {
+                    "value": 1875,
+                    "end_time": "2019-12-13T08:00:00+0000"
+                },
+                {
+                    "value": 2113,
+                    "end_time": "2019-12-14T08:00:00+0000"
+                },
+                {
+                    "value": 2184,
+                    "end_time": "2019-12-15T08:00:00+0000"
+                }
+            ],
+            "title": "Weekly Page Engaged Users",
+            "description": "Weekly: The number of people who engaged with your Page. Engagement includes any click or story created. (Unique Users)",
+            "id": "1234567890\/insights\/page_engaged_users\/week"
+        },
+        {
+            "name": "page_impressions_unique",
+            "period": "week",
+            "values": [
+                {
+                    "value": 68592,
+                    "end_time": "2019-12-13T08:00:00+0000"
+                },
+                {
+                    "value": 68589,
+                    "end_time": "2019-12-14T08:00:00+0000"
+                },
+                {
+                    "value": 70097,
+                    "end_time": "2019-12-15T08:00:00+0000"
+                }
+            ],
+            "title": "Weekly Total Reach",
+            "description": "Weekly: The number of people who had any content from your Page or about your Page enter their screen. This includes posts, check-ins, ads, social information from people who interact with your Page and more. (Unique Users)",
+            "id": "1234567890\/insights\/page_impressions_unique\/week"
+        },
+        {
+            "name": "page_views_total",
+            "period": "days_28",
+            "values": [
+                {
+                    "value": 488,
+                    "end_time": "2019-12-13T08:00:00+0000"
+                },
+                {
+                    "value": 607,
+                    "end_time": "2019-12-14T08:00:00+0000"
+                },
+                {
+                    "value": 637,
+                    "end_time": "2019-12-15T08:00:00+0000"
+                }
+            ],
+            "title": "28 Days Total views count per Page",
+            "description": "28 Days: Total views count per Page",
+            "id": "1234567890\/insights\/page_views_total\/days_28"
+        }
+    ]
+}

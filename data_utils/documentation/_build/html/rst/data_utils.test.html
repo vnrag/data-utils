@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>data_utils.test package &#8212; utils 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">utils 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="data-utils-test-package">
+<h1>data_utils.test package<a class="headerlink" href="#data-utils-test-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-data_utils.test.test_apiutils">
+<span id="data-utils-test-test-apiutils-module"></span><h2>data_utils.test.test_apiutils module<a class="headerlink" href="#module-data_utils.test.test_apiutils" title="Permalink to this headline">¶</a></h2>
+<p>Test Cases for apiutils library</p>
+<dl class="py function">
+<dt id="data_utils.test.test_apiutils.test_handle_get_request">
+<code class="sig-prename descclassname">data_utils.test.test_apiutils.</code><code class="sig-name descname">test_handle_get_request</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_apiutils.test_handle_get_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function for handle_get_request() function in apiutils</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_utils.test.test_awsutils">
+<span id="data-utils-test-test-awsutils-module"></span><h2>data_utils.test.test_awsutils module<a class="headerlink" href="#module-data_utils.test.test_awsutils" title="Permalink to this headline">¶</a></h2>
+<p>Test Cases for awsutils library</p>
+<dl class="py attribute">
+<dt id="data_utils.test.test_awsutils.config">
+<code class="sig-prename descclassname">data_utils.test.test_awsutils.</code><code class="sig-name descname">config</code><a class="headerlink" href="#data_utils.test.test_awsutils.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration used to create S3_base object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="data_utils.test.test_awsutils.EXPORT_BUCKET">
+<code class="sig-prename descclassname">data_utils.test.test_awsutils.</code><code class="sig-name descname">EXPORT_BUCKET</code><a class="headerlink" href="#data_utils.test.test_awsutils.EXPORT_BUCKET" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bucket to export resulting data to</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.test.test_awsutils.aws_credentials">
+<code class="sig-prename descclassname">data_utils.test.test_awsutils.</code><code class="sig-name descname">aws_credentials</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_awsutils.aws_credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mocks AWS Credentials for moto.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.test.test_awsutils.s3">
+<code class="sig-prename descclassname">data_utils.test.test_awsutils.</code><code class="sig-name descname">s3</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">aws_credentials</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_awsutils.s3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mocks a S3 instace for moto with a testing bucket</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>aws_credentials</strong> (<em>TYPE</em>) – Description</p>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><p><em>TYPE</em> – Description</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.test.test_awsutils.ssm">
+<code class="sig-prename descclassname">data_utils.test.test_awsutils.</code><code class="sig-name descname">ssm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">aws_credentials</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_awsutils.ssm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mocks a SSM service for moto with a parameter holding value for testing bucket</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>aws_credentials</strong> (<em>TYPE</em>) – Description</p>
+</dd>
+<dt class="field-even">Yields</dt>
+<dd class="field-even"><p><em>TYPE</em> – Description</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.test.test_awsutils.test_upload_parquet_to_s3">
+<code class="sig-prename descclassname">data_utils.test.test_awsutils.</code><code class="sig-name descname">test_upload_parquet_to_s3</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s3</span></em>, <em class="sig-param"><span class="n">ssm</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_awsutils.test_upload_parquet_to_s3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function for upload_parquet_to_s3() function in awsutils</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s3</strong> (<em>Mocked S3 Instance</em>) – Description</p></li>
+<li><p><strong>ssm</strong> (<em>Mocked SSM service</em>) – Description</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_utils.test.test_fbutils">
+<span id="data-utils-test-test-fbutils-module"></span><h2>data_utils.test.test_fbutils module<a class="headerlink" href="#module-data_utils.test.test_fbutils" title="Permalink to this headline">¶</a></h2>
+<p>Test Cases for fbutils library</p>
+<dl class="py function">
+<dt id="data_utils.test.test_fbutils.test_create_fb_url_data">
+<code class="sig-prename descclassname">data_utils.test.test_fbutils.</code><code class="sig-name descname">test_create_fb_url_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_fbutils.test_create_fb_url_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function for create_fb_url_data() function in fbutils</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.test.test_fbutils.test_create_fb_url_to_get_accounts">
+<code class="sig-prename descclassname">data_utils.test.test_fbutils.</code><code class="sig-name descname">test_create_fb_url_to_get_accounts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_fbutils.test_create_fb_url_to_get_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function for create_fb_url_to_get_accounts() function in fbutils</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.test.test_fbutils.test_get_fb_target_prefix">
+<code class="sig-prename descclassname">data_utils.test.test_fbutils.</code><code class="sig-name descname">test_get_fb_target_prefix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_fbutils.test_get_fb_target_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function for get_fb_target_prefix() function in fbutils</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.test.test_fbutils.test_get_flatten_impressions">
+<code class="sig-prename descclassname">data_utils.test.test_fbutils.</code><code class="sig-name descname">test_get_flatten_impressions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_fbutils.test_get_flatten_impressions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function for get_flatten_impressions() function in fbutils</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.test.test_fbutils.test_get_users_id_token_dict">
+<code class="sig-prename descclassname">data_utils.test.test_fbutils.</code><code class="sig-name descname">test_get_users_id_token_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_fbutils.test_get_users_id_token_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function for get_users_id_token_dict() function in fbutils</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_utils.test.test_generalutils">
+<span id="data-utils-test-test-generalutils-module"></span><h2>data_utils.test.test_generalutils module<a class="headerlink" href="#module-data_utils.test.test_generalutils" title="Permalink to this headline">¶</a></h2>
+<p>Test Cases for generalutils library</p>
+<dl class="py function">
+<dt id="data_utils.test.test_generalutils.test_create_data_frame">
+<code class="sig-prename descclassname">data_utils.test.test_generalutils.</code><code class="sig-name descname">test_create_data_frame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_generalutils.test_create_data_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function for create_data_frame() function in generalutil</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.test.test_generalutils.test_get_unix_timestamp">
+<code class="sig-prename descclassname">data_utils.test.test_generalutils.</code><code class="sig-name descname">test_get_unix_timestamp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_generalutils.test_get_unix_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function for get_unix_timestamp() function in generalutil</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_utils.test.test_matomoutils">
+<span id="data-utils-test-test-matomoutils-module"></span><h2>data_utils.test.test_matomoutils module<a class="headerlink" href="#module-data_utils.test.test_matomoutils" title="Permalink to this headline">¶</a></h2>
+<p>Test Cases for matomoutils library</p>
+<dl class="py function">
+<dt id="data_utils.test.test_matomoutils.test_create_matomo_url">
+<code class="sig-prename descclassname">data_utils.test.test_matomoutils.</code><code class="sig-name descname">test_create_matomo_url</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.test.test_matomoutils.test_create_matomo_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test function for create_matomo_url() function in matomoutils</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_utils.test">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-data_utils.test" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">data_utils.test package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-data_utils.test.test_apiutils">data_utils.test.test_apiutils module</a></li>
+<li><a class="reference internal" href="#module-data_utils.test.test_awsutils">data_utils.test.test_awsutils module</a></li>
+<li><a class="reference internal" href="#module-data_utils.test.test_fbutils">data_utils.test.test_fbutils module</a></li>
+<li><a class="reference internal" href="#module-data_utils.test.test_generalutils">data_utils.test.test_generalutils module</a></li>
+<li><a class="reference internal" href="#module-data_utils.test.test_matomoutils">data_utils.test.test_matomoutils module</a></li>
+<li><a class="reference internal" href="#module-data_utils.test">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/data_utils.test.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">utils 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, vnr.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.
+    </div>
+  </body>
+</html>

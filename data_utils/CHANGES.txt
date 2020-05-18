@@ -1,0 +1,25 @@
+Release Summary:
+
+0.1.0, May 11, 2020
+     First step for packaging code of the libraries generalutils, awsutils and fbutils.
+
+Details of each release follow, from most recent to oldest.
+
+-------------------------------------------------------------------------------------
+
+Release 0.1.0, May 11, 2020
+
+1) Included the initial code for the three libraries generalutils, awsutils, fbutils.
+2) Created a test folder to start writing testing scenarios of the three libraries using pytest.
+3) Started the documentation for the functions included in the libraries using sphinx.
+4) Changed the code to exclude any VNR specific usage and created generic functions for public usage.
+
+-------------------------------------------------------------------------------------
+
+Release 0.1.1, May 14, 2020
+
+1) Added the code for apiutils and matomoutils.
+2) Included test scenarios for all libraries
+3) Added s3fs and pyarrow to required libraries in SETUP.py
+
+-------------------------------------------------------------------------------------

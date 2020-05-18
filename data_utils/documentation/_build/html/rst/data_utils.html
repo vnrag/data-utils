@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>data_utils package &#8212; utils 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">utils 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="data-utils-package">
+<h1>data_utils package<a class="headerlink" href="#data-utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data_utils.test.html">data_utils.test package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data_utils.test.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_utils.test.html#module-data_utils.test.test_apiutils">data_utils.test.test_apiutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_utils.test.html#module-data_utils.test.test_awsutils">data_utils.test.test_awsutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_utils.test.html#module-data_utils.test.test_fbutils">data_utils.test.test_fbutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_utils.test.html#module-data_utils.test.test_generalutils">data_utils.test.test_generalutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_utils.test.html#module-data_utils.test.test_matomoutils">data_utils.test.test_matomoutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_utils.test.html#module-data_utils.test">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-data_utils.apiutils">
+<span id="data-utils-apiutils-module"></span><h2>data_utils.apiutils module<a class="headerlink" href="#module-data_utils.apiutils" title="Permalink to this headline">¶</a></h2>
+<p>A library containing commonly used utils for general api usage</p>
+<dl class="py function">
+<dt id="data_utils.apiutils.handle_get_request">
+<code class="sig-prename descclassname">data_utils.apiutils.</code><code class="sig-name descname">handle_get_request</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.apiutils.handle_get_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requests data from the provided URL via a get request</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>String</em>) – The URL to request data from</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SystemExit</strong> – Description</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_utils.awsutils">
+<span id="data-utils-awsutils-module"></span><h2>data_utils.awsutils module<a class="headerlink" href="#module-data_utils.awsutils" title="Permalink to this headline">¶</a></h2>
+<p>A library containing commonly used utils for AWS API</p>
+<dl class="py class">
+<dt id="data_utils.awsutils.S3Base">
+<em class="property">class </em><code class="sig-prename descclassname">data_utils.awsutils.</code><code class="sig-name descname">S3Base</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.awsutils.S3Base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>S3Base class to handle the s3 requests</p>
+<dl class="py attribute">
+<dt id="data_utils.awsutils.S3Base.s3_client">
+<code class="sig-name descname">s3_client</code><a class="headerlink" href="#data_utils.awsutils.S3Base.s3_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="data_utils.awsutils.S3Base.s3_resource">
+<code class="sig-name descname">s3_resource</code><a class="headerlink" href="#data_utils.awsutils.S3Base.s3_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="data_utils.awsutils.S3Base.get_ssm_parameter">
+<code class="sig-name descname">get_ssm_parameter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.awsutils.S3Base.get_ssm_parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value of a parameter from ssm using the provided name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>String</em>) – Name of the parameter</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Value of the parameter</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="data_utils.awsutils.S3Base.upload_parquet_to_s3">
+<code class="sig-name descname">upload_parquet_to_s3</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">s3_uri</span></em>, <em class="sig-param"><span class="n">parquet_context</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.awsutils.S3Base.upload_parquet_to_s3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the provided Pandas Dataframe to the provided s3 URI in parquet format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s3_uri</strong> (<em>String</em>) – S3 URI for parquet file</p></li>
+<li><p><strong>parquet_context</strong> (<em>Pandas DataFrame</em>) – Data to be put in the file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_utils.fbutils">
+<span id="data-utils-fbutils-module"></span><h2>data_utils.fbutils module<a class="headerlink" href="#module-data_utils.fbutils" title="Permalink to this headline">¶</a></h2>
+<p>A library containing commonly used utils for using facebbok API</p>
+<dl class="py attribute">
+<dt id="data_utils.fbutils.config">
+<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">config</code><a class="headerlink" href="#data_utils.fbutils.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads configuration from config file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.fbutils.create_fb_url_data">
+<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">create_fb_url_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start</span></em>, <em class="sig-param"><span class="n">stop</span></em>, <em class="sig-param"><span class="n">page_id</span></em>, <em class="sig-param"><span class="n">page_token</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.fbutils.create_fb_url_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a URL that can be used to call facebook GRAPH API with a page id and page token
+to get the desired metrics for the page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>int</em>) – start date in seconds</p></li>
+<li><p><strong>stop</strong> (<em>int</em>) – stop date in seconds</p></li>
+<li><p><strong>page_id</strong> (<em>String</em>) – Description</p></li>
+<li><p><strong>page_token</strong> (<em>String</em>) – Description</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>URL which can be used to call get request from facebook GRAPH API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.fbutils.create_fb_url_to_get_accounts">
+<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">create_fb_url_to_get_accounts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user_id</span></em>, <em class="sig-param"><span class="n">user_token</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.fbutils.create_fb_url_to_get_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a URL that can be used to call facebook GRAPH API with a user id and user token
+to get list of pages, page ids and page tokens</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app_id</strong> (<em>String</em>) – Description</p></li>
+<li><p><strong>access_token</strong> (<em>String</em>) – Description</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>URL which can be used to call get request from facebook GRAPH API</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.fbutils.get_fb_target_prefix">
+<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">get_fb_target_prefix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">root_folder</span></em>, <em class="sig-param"><span class="n">page_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.fbutils.get_fb_target_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a list of prefixes hierarchy for facebook api results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>String</em>) – Description</p></li>
+<li><p><strong>page_id</strong> (<em>String</em>) – Description</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.fbutils.get_flatten_impressions">
+<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">get_flatten_impressions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">impressions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.fbutils.get_flatten_impressions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flattens the result of impressions data requested by facebook GRAPH API</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>impressions</strong> (<em>json</em>) – Description</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Flattened dictionary containing impressions data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.fbutils.get_users_id_token_dict">
+<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">get_users_id_token_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">json_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.fbutils.get_users_id_token_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_data</strong> (<em>json</em>) – Description</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_utils.generalutils">
+<span id="data-utils-generalutils-module"></span><h2>data_utils.generalutils module<a class="headerlink" href="#module-data_utils.generalutils" title="Permalink to this headline">¶</a></h2>
+<p>A library containing commonly used utils for general purposes</p>
+<dl class="py function">
+<dt id="data_utils.generalutils.create_data_frame">
+<code class="sig-prename descclassname">data_utils.generalutils.</code><code class="sig-name descname">create_data_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.generalutils.create_data_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts input data into a pandas DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>TYPE</em>) – Description</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.generalutils.drop_unconfigured_columns">
+<code class="sig-prename descclassname">data_utils.generalutils.</code><code class="sig-name descname">drop_unconfigured_columns</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">conf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.generalutils.drop_unconfigured_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>TYPE</em>) – Description</p></li>
+<li><p><strong>conf</strong> (<em>TYPE</em>) – Description</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.generalutils.get_target_path">
+<code class="sig-prename descclassname">data_utils.generalutils.</code><code class="sig-name descname">get_target_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.generalutils.get_target_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates target key with provided target values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>target</strong> (<em>list</em>) – list of directories and file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>target path to the s3 file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.generalutils.get_unix_timestamp">
+<code class="sig-prename descclassname">data_utils.generalutils.</code><code class="sig-name descname">get_unix_timestamp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">provided_date</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.generalutils.get_unix_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a string date to Unix time. Input has to be in the format ‘%Y-%m-%d’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>provided_date</strong> (<em>String</em>) – Description</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>representation of date in Unix time (Epoch time, POSIX time)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_utils.matomoutils">
+<span id="data-utils-matomoutils-module"></span><h2>data_utils.matomoutils module<a class="headerlink" href="#module-data_utils.matomoutils" title="Permalink to this headline">¶</a></h2>
+<p>A library containing commonly used utils for motomo API</p>
+<dl class="py attribute">
+<dt id="data_utils.matomoutils.config">
+<code class="sig-prename descclassname">data_utils.matomoutils.</code><code class="sig-name descname">config</code><a class="headerlink" href="#data_utils.matomoutils.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads configuration from config file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.matomoutils.create_matomo_url">
+<code class="sig-prename descclassname">data_utils.matomoutils.</code><code class="sig-name descname">create_matomo_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">export_date</span></em>, <em class="sig-param"><span class="n">matomo_api_key</span></em>, <em class="sig-param"><span class="n">limit</span></em>, <em class="sig-param"><span class="n">offset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.matomoutils.create_matomo_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>export_date</strong> (<em>TYPE</em>) – Description</p></li>
+<li><p><strong>matomo_api_key</strong> (<em>TYPE</em>) – Description</p></li>
+<li><p><strong>limit</strong> (<em>TYPE</em>) – Description</p></li>
+<li><p><strong>offset</strong> (<em>TYPE</em>) – Description</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-data_utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-data_utils" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">data_utils package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-data_utils.apiutils">data_utils.apiutils module</a></li>
+<li><a class="reference internal" href="#module-data_utils.awsutils">data_utils.awsutils module</a></li>
+<li><a class="reference internal" href="#module-data_utils.fbutils">data_utils.fbutils module</a></li>
+<li><a class="reference internal" href="#module-data_utils.generalutils">data_utils.generalutils module</a></li>
+<li><a class="reference internal" href="#module-data_utils.matomoutils">data_utils.matomoutils module</a></li>
+<li><a class="reference internal" href="#module-data_utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/data_utils.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">utils 0.1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, vnr.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.3.
+    </div>
+  </body>
+</html>

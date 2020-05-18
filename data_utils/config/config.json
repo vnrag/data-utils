@@ -1,0 +1,5 @@
+{
+  "fb_data_url": "https://graph.facebook.com/v6.0/",
+  "fb_metric": "metric=page_fans_by_like_source,page_views_total,page_fans_gender_age,page_engaged_users,page_impressions_unique",
+  "matomo_url": "https://matomo.oneclicktrading.de/?module=API&method=Live.getLastVisitsDetails&idSite=all&period=day&date="
+}

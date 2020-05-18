@@ -1,0 +1,54 @@
+{
+    "data": [
+        {
+            "access_token": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "category": "Website",
+            "category_list": [
+                {
+                    "id": "99999999999999",
+                    "name": "Website"
+                }
+            ],
+            "name": "Peter Pan Business",
+            "id": "1234567890",
+            "tasks": [
+                "ANALYZE",
+                "ADVERTISE",
+                "MODERATE",
+                "CREATE_CONTENT",
+                "MANAGE"
+            ]
+        },
+        {
+            "access_token": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "category": "Schule",
+            "category_list": [
+                {
+                    "id": "1111111111111",
+                    "name": "Schule"
+                }
+            ],
+            "name": "PeterPan der Deutschen Wirtschaft",
+            "id": "0987654321",
+            "tasks": [
+                "VIEW_MONETIZATION_INSIGHTS",
+                "ANALYZE"
+            ]
+        },
+        {
+            "access_token": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "category": "Alternative und ganzheitliche Medizin",
+            "category_list": [
+                {
+                    "id": "55555555555555",
+                    "name": "Alternative und ganzheitliche Medizin"
+                }
+            ],
+            "name": "Peter & Pan",
+            "id": "1234509876",
+            "tasks": [
+                "ANALYZE"
+            ]
+        }
+    ]
+}

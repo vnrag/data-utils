@@ -1,59 +1,77 @@
+"""A library containing commonly used utils for general purposes
+"""
 import os
 import pandas as pd
 from datetime import datetime
 
-publishing_group = 'publishing_group=VNR'
-
-
 def create_data_frame(data):
+    """Converts input data into a pandas DataFrame
+    
+    Parameters
+    ----------
+    data : TYPE
+        Description
+    
+    Returns
+    -------
+    TYPE
+        Description
+    """
     df = pd.DataFrame(data)
     return df
 
 
 def get_unix_timestamp(provided_date):
+    """Converts a string date to Unix time. Input has to be in the format '%Y-%m-%d'
+    
+    Parameters
+    ----------
+    provided_date : String
+        Description
+    
+    Returns
+    -------
+    int
+        representation of date in Unix time (Epoch time, POSIX time)
+    """
     unix_time_stamp = int(datetime.strptime(str(provided_date), '%Y-%m-%d').
                           strftime("%s"))
     return unix_time_stamp
 
 
-def get_fb_target_prefix(app_id):
-    target_prefix = [publishing_group, f'provider=facebook', f'app_id='
-                                        f'{app_id}', f'type=page_impressions']
-    return target_prefix
-
-
 def get_target_path(target):
     """Creates target key with provided target values.
-    Arguments:
-        target_path {[list]} -- [list of directories and file]
-    Returns:
-        [string] -- [target path to the s3 file]
+    
+    Parameters
+    ----------
+    target : list
+        list of directories and file
+    
+    Returns
+    -------
+    String
+        target path to the s3 file
     """
     target_path = os.path.join('', *target)
     return target_path
 
 
-def get_flatten_impressions(impressions):
-    impressions_flat = []
-    data = impressions['data']
-    paging = impressions['paging'] if 'paging' in impressions else None
-    prev_page = paging['previous'] if paging and 'previous' in paging else ''
-    next_page = paging['next'] if paging and 'next' in paging else ''
-    for period in data:
-        if 'name' in period and 'values' in period and \
-                len(period['values']) > 0:
-            for value in period['values']:
-                value['id'] = period['id']
-                value['name'] = period['name']
-                value['period'] = period['period']
-                value['title'] = period['title']
-                value['description'] = period['description']
-                value['previous_page'] = prev_page
-                value['next_page'] = next_page
-                impressions_flat.append(value)
-    return impressions_flat
 
 def drop_unconfigured_columns(df, conf):
+    """Summary
+    
+    Parameters
+    ----------
+    df : TYPE
+        Description
+    conf : TYPE
+        Description
+    
+    Returns
+    -------
+    TYPE
+        Description
+    """
     all_used_columns = []
     if 'int_columns' in conf:
         all_used_columns = conf['int_columns']
