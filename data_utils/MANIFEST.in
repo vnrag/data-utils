@@ -1,3 +1,3 @@
 include README.rst
-include config/config.json
-include config/oct_visit.json
+include .config/config.json
+include .config/oct_visit.json
