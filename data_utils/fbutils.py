@@ -7,6 +7,8 @@ config : TYPE
 """
 import json
 import urllib3
+from datetime import datetime
+import os
 
 from .config import load_config
 config = load_config()
@@ -57,8 +59,7 @@ def create_fb_url_data(start, stop, page_id, page_token):
           f'access_token={page_token}'
     return url
 
-
-def get_flatten_impressions(impressions):
+def get_flatten_impressions(impressions, page_name):
     """Flattens the result of impressions data requested by facebook GRAPH API
     
     Parameters
@@ -75,47 +76,32 @@ def get_flatten_impressions(impressions):
     data = impressions['data']
     for period in data:
         if 'name' in period and 'values' in period and \
-                len(period['values']) > 0:
+        len(period['values']) > 0:
             for value in period['values']:
+                string_date = (value['end_time'].strip().split('T')[0]).\
+                replace('-', '/')
+                date_val = datetime.strptime(string_date,
+                '%Y/%m/%d').strftime("%Y/%m/%d")
                 if type(value['value']) == dict:
                     for key, val in value['value'].items():
-                        if period['name'] not in impressions_flat:
-                            impressions_flat[period['name']] = []
+                        if date_val not in impressions_flat:
+                            impressions_flat[date_val] = []
 
-                        temp = {'id': period['id'], 'name': period['name'],
-                            'period': period['period'], 'value':
-                                f'{key}: {val}', 'end_time':
-                                value['end_time']}
-                        impressions_flat[period['name']].append(temp)
+                        temp = {'page_name': page_name, 'name':
+                            period['name'], 'period': period['period'],
+                                'details': key, 'value': val,
+                                'end_time': date_val}
+                        impressions_flat[date_val].append(temp)
                 else:
-                    if period['name'] not in impressions_flat:
-                        impressions_flat[period['name']] = []
+                    if date_val not in impressions_flat:
+                        impressions_flat[date_val] = []
 
-                    temp = {'id': period['id'], 'name': period['name'],
-                            'period': period['period'], 'value':
-                                value['value'], 'end_time':
-                                value['end_time']}
-                    impressions_flat[period['name']].append(temp)
+                    temp = {'page_name': page_name, 'name': period['name'],
+                            'period': period['period'], 'details': '',
+                            'value': value['value'], 'end_time': date_val}
+
+                    impressions_flat[date_val].append(temp)
     return impressions_flat
-
-def get_fb_target_prefix(root_folder, page_id):
-    """Creates a list of prefixes hierarchy for facebook api results
-    
-    Parameters
-    ----------
-    root_folder : String
-        Description
-    page_id : String
-        Description
-    
-    Returns
-    -------
-    list
-        Description
-    """
-    target_prefix = [root_folder, f'provider=facebook', f'page_id='
-                                        f'{page_id}']
-    return target_prefix
     
 def get_users_id_token_dict(json_data):
     """Summary
@@ -135,3 +121,9 @@ def get_users_id_token_dict(json_data):
         user_dict_list.append({'id': user['id'], 'access_token':
             user['access_token']})
     return user_dict_list
+
+def map_fb_output_data(df):
+    df['period'] = df['period'].astype(str)
+    df['value'] = df['value'].astype(str)
+    df['end_time'] = df['end_time'].astype(str)
+    return df

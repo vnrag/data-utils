@@ -83,3 +83,36 @@ def drop_unconfigured_columns(df, conf):
         all_used_columns.extend(conf['datetime_columns'])
     df = df[df.columns.intersection(all_used_columns)]
     return df
+
+def get_target_prefix(publishing_group, provider, app_id):
+    """Creates a list of prefixes hierarchy for the provided api results
+    
+    Parameters
+    ----------
+    root_folder : String
+        Description
+    page_id : String
+        Description
+    
+    Returns
+    -------
+    list
+        Description
+    """
+    target_prefix = [publishing_group, f'provider={provider}',
+    f'partition_page_id={app_id}']
+    return target_prefix
+
+def create_locally(publishing_group, provider, app_id, df, details):
+    target_prefix = get_target_prefix(publishing_group, provider, app_id)
+    target_prefix.extend(details)
+
+    file_path = get_target_path(target_prefix)
+    dir = os.path.dirname(file_path)
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+    with open(file_path, 'w') as f:
+        resp = df.to_csv(f)
+
+    output_message = {'Response': resp}
+    return output_message
