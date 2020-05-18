@@ -10,7 +10,7 @@ import urllib3
 from datetime import datetime
 import os
 
-from .config import load_config
+from config import load_config
 config = load_config()
 
 def create_fb_url_to_get_accounts(user_id, user_token):
