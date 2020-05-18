@@ -127,3 +127,10 @@ def map_fb_output_data(df):
     df['value'] = df['value'].astype(str)
     df['end_time'] = df['end_time'].astype(str)
     return df
+
+def get_pages_info_dict(json_data):
+    pages_info_dict_list = []
+    for page in json_data['data']:
+        pages_info_dict_list.append({'id': page['id'], 'access_token':
+            page['access_token'], 'name': page['name']})
+    return pages_info_dict_list
