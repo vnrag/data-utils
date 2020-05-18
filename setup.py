@@ -36,7 +36,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     license='MIT',
-    packages=find_packages(exclude=["test*", "*.tests", "*.tests.*", "tests.*"]) + ['config'],
+    packages=find_packages(exclude=["test*", "*.tests", "*.tests.*", "tests.*"]),
     install_requires=REQUIRED,
     include_package_data=True,
     classifiers=[
