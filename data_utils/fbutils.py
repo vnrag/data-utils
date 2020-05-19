@@ -123,12 +123,37 @@ def get_users_id_token_dict(json_data):
     return user_dict_list
 
 def map_fb_output_data(df):
+    """Maps the data data types of facebook results to the respective predefined ones: 
+    period, value and end_time to Strings
+    
+    Parameters
+    ----------
+    df : Pandas DataFrame
+        Description
+    
+    Returns
+    -------
+    Pandas DataFrame
+        Description
+    """
     df['period'] = df['period'].astype(str)
     df['value'] = df['value'].astype(str)
     df['end_time'] = df['end_time'].astype(str)
     return df
 
 def get_pages_info_dict(json_data):
+    """Gets the information of facebook pages
+    
+    Parameters
+    ----------
+    json_data : json
+        Description
+    
+    Returns
+    -------
+    list
+        Description
+    """
     pages_info_dict_list = []
     for page in json_data['data']:
         pages_info_dict_list.append({'id': page['id'], 'access_token':

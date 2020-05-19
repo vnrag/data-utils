@@ -5,7 +5,7 @@ import pytest
 import pandas as pd
 
 def test_get_unix_timestamp():
-    """Test function for get_unix_timestamp() function in generalutil
+    """Test function for get_unix_timestamp() function in generalutils
     """
     test_date = '2020-01-01'
     unix_time = gu.get_unix_timestamp(test_date)
@@ -14,7 +14,7 @@ def test_get_unix_timestamp():
     assert unix_time == 1577836800
     
 def test_create_data_frame():
-    """Test function for create_data_frame() function in generalutil
+    """Test function for create_data_frame() function in generalutils
     """
     test_data = {
         'col1': [1, 2, 3],
@@ -27,4 +27,17 @@ def test_create_data_frame():
     assert df['col1'].dtypes.name == 'int64'
     assert df['col2'].dtypes.name == 'object'
     assert df['col3'].dtypes.name == 'float64'
+
+def test_get_target_prefix():
+    """Test function for get_target_prefix() function in generalutils
+    """
+    publishing_group= 'VNR'
+    provider = 'facebook'
+    page_id= '1234567890'
+    prefix= gu.get_target_prefix(publishing_group, provider, page_id)
+    
+    assert isinstance(prefix, list)
+    assert publishing_group in prefix
+    assert f'provider={provider}' in prefix
+    assert f'partition_page_id={page_id}' in prefix
     

@@ -15,13 +15,7 @@ import pandas as pd
 import os
 import io
 
-config = {
-    'client': True,
-    'resource': True
-}
-
-
-
+config = {'client': True, 'resource': True}
 EXPORT_BUCKET="OUTPUT"
 
 

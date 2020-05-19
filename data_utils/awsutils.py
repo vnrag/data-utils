@@ -24,10 +24,10 @@ class S3Base(object):
 		config : Dict
 				Needed parameters for the s3
 		"""
-		# self.s3_client = boto3.client('s3') if config['client'] else \
-		# 	config['client']
-		# self.s3_resource = boto3.resource('s3') if config['resource'] \
-		# 	else config['resource']
+		self.s3_client = boto3.client('s3') if config['client'] else \
+			config['client']
+		self.s3_resource = boto3.resource('s3') if config['resource'] \
+			else config['resource']
 
 	def get_ssm_parameter(self, name):
 		"""Returns the value of a parameter from ssm using the provided name

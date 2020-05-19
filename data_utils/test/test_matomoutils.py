@@ -15,5 +15,5 @@ def test_create_matomo_url():
     assert isinstance(url, str)
     assert export_date in url
     assert matomo_api_key in url
-    assert limit in url
-    assert offset in url
+    assert f'filter_limit={limit}' in url
+    assert f'filter_offset={offset}' in url
