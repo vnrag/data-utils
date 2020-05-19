@@ -210,28 +210,8 @@ to get list of pages, page ids and page tokens</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="data_utils.fbutils.get_fb_target_prefix">
-<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">get_fb_target_prefix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">root_folder</span></em>, <em class="sig-param"><span class="n">page_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.fbutils.get_fb_target_prefix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a list of prefixes hierarchy for facebook api results</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>root_folder</strong> (<em>String</em>) – Description</p></li>
-<li><p><strong>page_id</strong> (<em>String</em>) – Description</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Description</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt id="data_utils.fbutils.get_flatten_impressions">
-<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">get_flatten_impressions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">impressions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.fbutils.get_flatten_impressions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">get_flatten_impressions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">impressions</span></em>, <em class="sig-param"><span class="n">page_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.fbutils.get_flatten_impressions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flattens the result of impressions data requested by facebook GRAPH API</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -242,6 +222,23 @@ to get list of pages, page ids and page tokens</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.fbutils.get_pages_info_dict">
+<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">get_pages_info_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">json_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.fbutils.get_pages_info_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the information of facebook pages</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_data</strong> (<em>json</em>) – Description</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -259,6 +256,24 @@ to get list of pages, page ids and page tokens</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.fbutils.map_fb_output_data">
+<code class="sig-prename descclassname">data_utils.fbutils.</code><code class="sig-name descname">map_fb_output_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.fbutils.map_fb_output_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps the data data types of facebook results to the respective predefined ones:
+period, value and end_time to Strings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>Pandas DataFrame</em>) – Description</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Pandas DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -283,6 +298,11 @@ to get list of pages, page ids and page tokens</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.generalutils.create_locally">
+<code class="sig-prename descclassname">data_utils.generalutils.</code><code class="sig-name descname">create_locally</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">publishing_group</span></em>, <em class="sig-param"><span class="n">provider</span></em>, <em class="sig-param"><span class="n">app_id</span></em>, <em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">details</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.generalutils.create_locally" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt id="data_utils.generalutils.drop_unconfigured_columns">
@@ -317,6 +337,26 @@ to get list of pages, page ids and page tokens</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="data_utils.generalutils.get_target_prefix">
+<code class="sig-prename descclassname">data_utils.generalutils.</code><code class="sig-name descname">get_target_prefix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">publishing_group</span></em>, <em class="sig-param"><span class="n">provider</span></em>, <em class="sig-param"><span class="n">app_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_utils.generalutils.get_target_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a list of prefixes hierarchy for the provided api results</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_folder</strong> (<em>String</em>) – Description</p></li>
+<li><p><strong>page_id</strong> (<em>String</em>) – Description</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Description</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>

@@ -65,16 +65,6 @@ def test_get_users_id_token_dict():
 
 def test_map_fb_output_data():
     """Test function for map_fb_output_data() function in fbutils
-    
-    Parameters
-    ----------
-    df : TYPE
-        Description
-    
-    Returns
-    -------
-    TYPE
-        Description
     """
     test_data = {
         'period': [1, 2, 3],
@@ -90,16 +80,6 @@ def test_map_fb_output_data():
 
 def test_get_pages_info_dict():
     """Test function for get_pages_info_dict() function in fbutils
-    
-    Parameters
-    ----------
-    json_data : TYPE
-        Description
-    
-    Returns
-    -------
-    TYPE
-        Description
     """
     with open('test/res/pages_list.json') as f:
         pages_list = json.load(f)
