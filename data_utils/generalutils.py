@@ -18,16 +18,11 @@ def get_logger():
 
 
 def get_config():
-    """Returns the config parameters from config file
+    """Loads config from config folder
 
-       Parameters
-       ----------
-
-       Returns
-       -------
-       TYPE
-           json
-       """
+    Returns:
+        [json] -- [Config from config.json]
+    """
     return load_config()
 
 
