@@ -4,6 +4,22 @@ import os
 import pandas as pd
 from datetime import datetime
 
+from .config import load_config
+
+
+def get_config():
+    """Returns the config parameters from config file
+
+       Parameters
+       ----------
+
+       Returns
+       -------
+       TYPE
+           json
+       """
+    return load_config()
+
 
 def create_data_frame(data):
     """Converts input data into a pandas DataFrame

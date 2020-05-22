@@ -6,9 +6,7 @@ config : TYPE
     Loads configuration from config file
 """
 import json
-import urllib3
 from datetime import datetime
-import os
 
 from .config import load_config
 config = load_config()

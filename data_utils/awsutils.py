@@ -2,7 +2,7 @@
 """
 import boto3
 import botocore
-import pandas as pd
+
 
 class S3Base(object):
 
@@ -16,18 +16,14 @@ class S3Base(object):
 			Description
 	"""
 
-	def __init__(self, config):
+	def __init__(self):
 		"""Initialization of class with needed arguments for s3
 
 		Parameters
 		----------
-		config : Dict
-				Needed parameters for the s3
 		"""
-		self.s3_client = boto3.client('s3') if config['client'] else \
-			config['client']
-		self.s3_resource = boto3.resource('s3') if config['resource'] \
-			else config['resource']
+		self.s3_client = boto3.client('s3')
+		self.s3_resource = boto3.resource('s3')
 
 	def get_ssm_parameter(self, name):
 		"""Returns the value of a parameter from ssm using the provided name

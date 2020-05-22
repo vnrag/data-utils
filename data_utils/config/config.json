@@ -1,5 +1,10 @@
 {
   "fb_data_url": "https://graph.facebook.com/v6.0/",
   "fb_metric": "metric=page_fans_by_like_source,page_views_total,page_fans_gender_age,page_engaged_users,page_impressions_unique",
-  "matomo_url": "https://matomo.oneclicktrading.de/?module=API&method=Live.getLastVisitsDetails&idSite=all&period=day&date="
+  "matomo_url": "https://matomo.oneclicktrading.de/?module=API&method=Live.getLastVisitsDetails&idSite=all&period=day&date=",
+  "epi_smart_campaigns_url": "https://api.campaign.episerver.net/rest/{client_id}/smartcampaigns?limit=1000&sort=created",
+  "epi_smart_campaign_url": "https://api.campaign.episerver.net/rest/{client_id}/smartcampaigns/{campaign_id}",
+  "epi_mailing_id_folder_url": "https://api.campaign.episerver.net/rest/{client_id}/folders?entityId={mailing_id}",
+  "epi_campaign_report_url": "https://api.campaign.episerver.net/rest/{client_id}/smartcampaigns/{campaign_id}/report",
+  "epi_mailing_folder_url": "https://api.campaign.episerver.net/rest/{client_id}/folders?type=mailing"
 }
