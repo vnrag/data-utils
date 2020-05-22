@@ -26,15 +26,15 @@ def get_folders(folders_json):
     Returns:
         [list] -- [List of json]
     """
-        try:
-            folders = []
-            for folder in folders_json['elements']:
-                del folder['links']
-                folders.append(json.dumps(folder))
-            return folders
-        except Exception as e:
-            print(e)
-            return None
+    try:
+        folders = []
+        for folder in folders_json['elements']:
+            del folder['links']
+            folders.append(json.dumps(folder))
+        return folders
+    except Exception as e:
+        print(e)
+        return None
 
 
 def get_campaign_ids(campaigns_json):
