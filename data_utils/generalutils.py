@@ -1,10 +1,20 @@
 """A library containing commonly used utils for general purposes
 """
 import os
+import logging
 import pandas as pd
 from datetime import datetime
 
 from .config import load_config
+
+
+def get_logger():
+    """Gets logger
+
+    Returns:
+        [instance] -- [Instance for Logger]
+    """
+    return logging.getLogger()
 
 
 def get_config():
@@ -122,6 +132,18 @@ def get_target_prefix(publishing_group, provider, app_id):
 
 
 def create_locally(publishing_group, provider, app_id, df, details):
+    """[summary]
+
+    Arguments:
+        publishing_group {[string]} -- [Name for publishing group]
+        provider {[string]} -- [Provider name]
+        app_id {[string]} -- [Id for app]
+        df {[string]} -- [Dataframe to be inserted]
+        details {[string]} -- [Details for the target name]
+
+    Returns:
+        [type] -- [description]
+    """
     target_prefix = get_target_prefix(publishing_group, provider, app_id)
     target_prefix.extend(details)
 
