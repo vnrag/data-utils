@@ -3,7 +3,8 @@
 import json
 import urllib3
 
-def handle_get_request(url):
+
+def handle_get_request(url, headers=None):
 	"""Requests data from the provided URL via a get request
 
 	Parameters
@@ -22,7 +23,7 @@ def handle_get_request(url):
 		Description
 	"""
 	http = urllib3.PoolManager()
-	r = http.request('GET', url)
+	r = http.request('GET', url, headers=headers)
 	if r.status != 200:
 		print(r.data)
 		raise SystemExit

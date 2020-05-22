@@ -4,6 +4,7 @@ import os
 import pandas as pd
 from datetime import datetime
 
+
 def create_data_frame(data):
     """Converts input data into a pandas DataFrame
     
@@ -56,7 +57,6 @@ def get_target_path(target):
     return target_path
 
 
-
 def drop_unconfigured_columns(df, conf):
     """Summary
     
@@ -84,6 +84,7 @@ def drop_unconfigured_columns(df, conf):
     df = df[df.columns.intersection(all_used_columns)]
     return df
 
+
 def get_target_prefix(publishing_group, provider, app_id):
     """Creates a list of prefixes hierarchy for the provided api results
     
@@ -102,6 +103,7 @@ def get_target_prefix(publishing_group, provider, app_id):
     target_prefix = [publishing_group, f'provider={provider}',
     f'partition_page_id={app_id}']
     return target_prefix
+
 
 def create_locally(publishing_group, provider, app_id, df, details):
     target_prefix = get_target_prefix(publishing_group, provider, app_id)
