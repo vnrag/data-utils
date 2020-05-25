@@ -15,6 +15,7 @@ pyarrow = "*"
 s3fs = "*"
 pytest = "*"
 moto = "*"
+awswrangler = "*"
 ipython = "*"
 
 [requires]

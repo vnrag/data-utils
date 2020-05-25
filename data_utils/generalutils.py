@@ -8,13 +8,16 @@ from datetime import datetime
 from .config import load_config
 
 
-def get_logger():
+def get_logger(name):
     """Gets logger
 
     Returns:
         [instance] -- [Instance for Logger]
     """
-    return logging.getLogger()
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+    logging.info(name)
+    return logger
 
 
 def get_config():

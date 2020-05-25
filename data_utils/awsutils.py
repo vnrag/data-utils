@@ -2,6 +2,7 @@
 """
 import boto3
 import botocore
+import awswrangler as wr
 
 
 class S3Base(object):
@@ -41,8 +42,15 @@ class S3Base(object):
 		ssm_client = boto3.client('ssm', 'eu-central-1')
 		obj = ssm_client.get_parameter(Name=name, WithDecryption=False)
 		target_name = obj['Parameter']['Value'].encode()
-		
+
 		return target_name.decode('UTF-8')
+
+	def upload_parquet_with_wrangler(self, s3_uri, context):
+		sess = wr.Session()
+		sess.df.to_parquet(
+			dataframe=context,
+			path=s3_uri
+		)
 
 	def upload_parquet_to_s3(self, s3_uri, parquet_context):
 		"""Saves the provided Pandas Dataframe to the provided s3 URI in parquet format
@@ -63,4 +71,4 @@ class S3Base(object):
 			parquet_context.to_parquet(s3_uri, allow_truncated_timestamps=True)
 			return f'file uploaded to {s3_uri}'
 		except botocore.exceptions.ClientError as e:
-			return f'couldn\'t upload to {s3_uri}, error: {e}'
+			return f'couldn"t upload to {s3_uri}, error: {e}'
