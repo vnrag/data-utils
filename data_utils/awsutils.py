@@ -46,11 +46,15 @@ class S3Base(object):
 		return target_name.decode('UTF-8')
 
 	def upload_parquet_with_wrangler(self, s3_uri, context):
-		sess = wr.Session()
-		sess.df.to_parquet(
-			dataframe=context,
-			path=s3_uri
-		)
+		try:
+			sess = wr.Session()
+			sess.df.to_parquet(
+				dataframe=context,
+				path=s3_uri
+			)
+			print(f"---- File uploaded to {s3_uri} ----")
+		except botocore.exceptions.ClientError as e:
+			print(f"couldn't upload to {s3_uri}, error: {e}")
 
 	def upload_parquet_to_s3(self, s3_uri, parquet_context):
 		"""Saves the provided Pandas Dataframe to the provided s3 URI in parquet format
