@@ -3,7 +3,6 @@
 import os
 import logging
 import pandas as pd
-from datetime import datetime
 
 from .config import load_config
 
@@ -29,14 +28,14 @@ def get_config():
     return load_config()
 
 
-def create_data_frame(data):
+def create_data_frame(data=None):
     """Converts input data into a pandas DataFrame
-    
+
     Parameters
     ----------
     data : TYPE
         Description
-    
+
     Returns
     -------
     TYPE
@@ -46,14 +45,48 @@ def create_data_frame(data):
     return df
 
 
+def concat_data_frame(list_of_df):
+    """Converts input data into a pandas DataFrame
+
+    Parameters
+    ----------
+    list_of_df : list
+        Description
+
+    Returns
+    -------
+    TYPE
+        Description
+    """
+    df = pd.concat(list_of_df)
+    return df
+
+
+def normalize_json(data):
+    """Converts input data into a pandas DataFrame
+
+        Parameters
+        ----------
+        data : json
+            Description
+
+        Returns
+        -------
+        TYPE
+            Description
+        """
+    df = pd.json_normalize(data)
+    return df
+
+
 def get_unix_timestamp(provided_date):
     """Converts a string date to Unix time. Input has to be in the format '%Y-%m-%d'
-    
+
     Parameters
     ----------
     provided_date : String
         Description
-    
+
     Returns
     -------
     int
@@ -66,12 +99,12 @@ def get_unix_timestamp(provided_date):
 
 def get_target_path(target):
     """Creates target key with provided target values.
-    
+
     Parameters
     ----------
     target : list
         list of directories and file
-    
+
     Returns
     -------
     String
@@ -83,14 +116,14 @@ def get_target_path(target):
 
 def drop_unconfigured_columns(df, conf):
     """Summary
-    
+
     Parameters
     ----------
     df : TYPE
         Description
     conf : TYPE
         Description
-    
+
     Returns
     -------
     TYPE
@@ -111,14 +144,14 @@ def drop_unconfigured_columns(df, conf):
 
 def get_target_prefix(publishing_group, provider, app_id):
     """Creates a list of prefixes hierarchy for the provided api results
-    
+
     Parameters
     ----------
     root_folder : String
         Description
     page_id : String
         Description
-    
+
     Returns
     -------
     list
@@ -129,28 +162,19 @@ def get_target_prefix(publishing_group, provider, app_id):
     return target_prefix
 
 
-def create_locally(publishing_group, provider, app_id, df, details):
+def create_locally(key_val_dict):
     """[summary]
 
     Arguments:
-        publishing_group {[string]} -- [Name for publishing group]
-        provider {[string]} -- [Provider name]
-        app_id {[string]} -- [Id for app]
-        df {[string]} -- [Dataframe to be inserted]
-        details {[string]} -- [Details for the target name]
-
+        key_val_dict {[dict]} -- [Key and data for a file as key value pair.]
     Returns:
         [type] -- [description]
     """
-    target_prefix = get_target_prefix(publishing_group, provider, app_id)
-    target_prefix.extend(details)
-
-    file_path = get_target_path(target_prefix)
-    dir = os.path.dirname(file_path)
-    if not os.path.exists(dir):
-        os.makedirs(dir)
-    with open(file_path, 'w') as f:
-        resp = df.to_csv(f)
-
-    output_message = {'Response': resp}
-    return output_message
+    for file_path, df in key_val_dict.items():
+        file_path = file_path.replace('parquet', 'csv')
+        df = pd.DataFrame.from_dict(df)
+        dir = os.path.dirname(file_path)
+        if not os.path.exists(dir):
+            os.makedirs(dir)
+        with open(file_path, 'w') as f:
+            df.to_csv(f)

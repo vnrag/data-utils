@@ -30,7 +30,7 @@ def get_folders(folders_json):
         folders = []
         for folder in folders_json['elements']:
             del folder['links']
-            folders.append(json.dumps(folder))
+            folders.append(folder)
         return folders
     except Exception as e:
         print(e)
@@ -150,4 +150,14 @@ def get_folder_ids(folder_json):
         return folders
     except:
         return None
+
+
+def map_server_folder(df):
+    df['id'] = df['id'].astype('int64')
+    df['name'] = df['name'].astype('str')
+    df['parentId'] = df['parentId'].astype('int64')
+    df['childrenIds'] = df['childrenIds'].astype('object')
+    df['created'] = df['created'].astype('str')
+    df['client_id'] = df['client_id'].astype('str')
+    return df
 
