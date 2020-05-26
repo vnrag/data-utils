@@ -47,9 +47,8 @@ class S3Base(object):
 
 	def upload_parquet_with_wrangler(self, s3_uri, context):
 		try:
-			sess = wr.Session()
-			sess.df.to_parquet(
-				dataframe=context,
+			wr.s3.to_parquet(
+				df=context,
 				path=s3_uri
 			)
 			print(f"---- File uploaded to {s3_uri} ----")
