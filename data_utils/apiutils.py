@@ -54,10 +54,9 @@ def handle_post_request(url, body=None, headers=None, fields=None):
 	"""
 
 	http = urllib3.PoolManager()
-	encoded_body = json.dumps(body).encode('utf-8')
 	r = http.request(
 		'POST',
-		url, body=encoded_body, headers=headers, fields=fields
+		url, body=body, headers=headers, fields=fields
 	)
 	if r.status != 200:
 		print(r.data)
