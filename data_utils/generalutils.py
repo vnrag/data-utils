@@ -63,6 +63,32 @@ def concat_data_frame(list_of_df):
     return df
 
 
+def convert_object_type_to_np_array(df, list_of_cols):
+    """Converts object type of df to np array
+
+    Parameters
+    ----------
+    df : Dataframe
+        Description
+    list_of_cols: List
+        List of column names that needs np array adjustments
+
+    Returns
+    -------
+    TYPE
+        df
+    """
+    object_type_columns = [col for col in df.columns if df[col].dtype ==
+                          'object']
+    cols_to_be_adjusted = list(set(list_of_cols).intersection(
+        object_type_columns))
+    if cols_to_be_adjusted:
+        for col in cols_to_be_adjusted:
+            df[col] = df[col].apply(pd.Series)
+
+    return df
+
+
 def normalize_json(data):
     """Converts input data into a pandas DataFrame
 

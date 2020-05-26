@@ -11,5 +11,6 @@
   "epi_campaign_target_key": "provider=episerver/object=campaign/partition_client_id={client_id}/campaign.parquet",
   "epi_campaign_report_target_key": "provider=episerver/object=campaign-report/partition_client_id={client_id}/campaign-report.parquet",
   "epi_mailing_target_key": "provider=episerver/object=mailing/partition_client_id={client_id}/mailing.parquet",
-  "epi_mailing_report_target_key": "provider=episerver/object=mailing-report/partition_client_id={client_id}/partition_year={year}/{month}/{day}/mailing-report.parquet"
+  "epi_mailing_report_target_key": "provider=episerver/object=mailing-report/partition_client_id={client_id}/partition_year={year}/{month}/{day}/mailing-report.parquet",
+  "epi_array_list":["recipientLists.recipientListIds", "childrenIds", "folderIds"]
 }
