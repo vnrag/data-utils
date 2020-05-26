@@ -30,7 +30,7 @@ def handle_get_request(url, headers=None):
 	return json.loads(r.data.decode('utf-8'))
 
 
-def handle_post_request(url, body=None, headers=None):
+def handle_post_request(url, body=None, headers=None, fields=None):
 	"""Requests data from the provided URL via a get request
 	Parameters
 	----------
@@ -38,6 +38,8 @@ def handle_post_request(url, body=None, headers=None):
 		The URL to post data and get results
 	body: Json
 		Contents for the post request
+	fields: dict
+		Key value pair for needed arguments on post
 	headers: Json
 		Needed arguments for post request
 		Eg: {'Content-Type': 'application/json'}
@@ -53,7 +55,10 @@ def handle_post_request(url, body=None, headers=None):
 
 	http = urllib3.PoolManager()
 	encoded_body = json.dumps(body).encode('utf-8')
-	r = http.request('POST', url, body=encoded_body, headers=headers)
+	r = http.request(
+		'POST',
+		url, body=encoded_body, headers=headers, fields=fields
+	)
 	if r.status != 200:
 		print(r.data)
 		raise SystemExit
