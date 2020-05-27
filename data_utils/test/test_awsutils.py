@@ -15,7 +15,6 @@ import pandas as pd
 import os
 import io
 
-config = {'client': True, 'resource': True}
 EXPORT_BUCKET="OUTPUT"
 
 
@@ -75,7 +74,7 @@ def test_upload_parquet_to_s3(s3, ssm):
     ssm : Mocked SSM service
         Description
     """
-    s3_base = awsu.S3Base(config)
+    s3_base = awsu.S3Base()
     
     bucket = s3_base.get_ssm_parameter('ExternalBucketName')
     target_key = 'publishing_group=VNR/provider=facebook/page_id=1234567890/year=2020/month=01/day=01/11111111.parquet'
