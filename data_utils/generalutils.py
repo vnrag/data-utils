@@ -39,7 +39,7 @@ def get_unix_timestamp(provided_date):
     return unix_time_stamp
 
 
-def get_target_path(target):
+def get_target_path(target, file_extension= None):
     """Creates target key with provided target values.
     
     Parameters
@@ -53,7 +53,7 @@ def get_target_path(target):
         target path to the s3 file
     """
     target_path = os.path.join('', *target)
-    return target_path
+    return target_path + file_extension if file_extension else target_path
 
 
 
