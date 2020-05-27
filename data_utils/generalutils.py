@@ -61,7 +61,7 @@ def get_target_path(target, file_extension= None):
         target path to the s3 file
     """
     target_path = os.path.join('', *target)
-    return target_path + file_extension if file_extension else target_path
+    return target_path + f'.{file_extension}' if file_extension else target_path
 
 
 
