@@ -58,7 +58,7 @@ def handle_post_request(url, body=None, headers=None, fields=None):
 	if fields:
 		r = http.request(
 			'POST',
-			url, body=encoded_body, headers=headers, fields=fields
+			url, headers=headers, fields=fields
 		)
 	else:
 		r = http.request(
