@@ -7,6 +7,7 @@ import pandas as pd
 import logging
 import json
 from data_utils.settings import Settings
+from data_utils import generalutils as gu
 from s3fs import S3FileSystem
 
 class S3Base(object):
@@ -70,6 +71,15 @@ class S3Base(object):
 			'LocationConstraint': self.settings.AWS_REGION
 		})
 		
+	def create_s3_uri(self, bucket,key, tmpFileName, FileType= None):
+		'''creates and s3 uri: s3://bucket/key
+		
+		Arguments:
+			bucket {string} -- bucket name
+			key {string} -- key path
+		'''
+		return gu.get_target_path(['s3://',bucket, key, tmpFileName], FileType)
+	
 	def check_if_object_exists(self, bucket, key):
 		'''
 		Wrapper for checking whether a given bucket already exists or not.
