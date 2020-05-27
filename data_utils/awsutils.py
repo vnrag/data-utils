@@ -185,7 +185,7 @@ class S3Base(object):
 		# Uploads the given file using a managed uploader, which will split up large
 		# files automatically and upload parts in parallel.
 		# self.s3_conn.Object(bucket, key).put(Body=json_context, 'rb')
-		self.upload_object_to_s3(bucket, key, json_context)
+		self.upload_object_to_s3(json_context, bucket, key)
 
 	def upload_as_json_to_s3(self, json_context, bucket, key):
 		'''
@@ -193,14 +193,15 @@ class S3Base(object):
 		'''
 		# converting json object to string
 		json_string = json.dumps(json_context)
-		self.upload_object_to_s3(bucket, key, json_string)
+		self.upload_object_to_s3(json_string, bucket, key)
 
 	def upload_as_csv_to_s3(self, csv_context, bucket, key):
 		'''
 		Wrapper to upload a csv-file with key to a S3 bucket.
 		'''
 		# converting json object to string
-		self.upload_object_to_s3(bucket, key, csv_context)
+		
+		self.upload_object_to_s3(csv_context, bucket, key)
 
 	def upload_object_to_s3(self, body, bucket, key):
 		'''
