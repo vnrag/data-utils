@@ -71,7 +71,7 @@ class S3Base(object):
 			'LocationConstraint': self.settings.AWS_REGION
 		})
 		
-	def create_s3_uri(self, bucket,key, tmpFileName, FileType= None):
+	def create_s3_uri(self, bucket, key, tmpFileName, FileType= None):
 		'''creates and s3 uri: s3://bucket/key
 		
 		Arguments:
