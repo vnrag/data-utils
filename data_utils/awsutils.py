@@ -6,7 +6,7 @@ import botocore
 import pandas as pd
 import logging
 import json
-from settings import Settings
+from data_utils.settings import Settings
 from s3fs import S3FileSystem
 
 class S3Base(object):
