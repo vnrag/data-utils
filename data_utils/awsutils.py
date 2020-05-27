@@ -25,7 +25,7 @@ class S3Base(object):
 	logger = None
 	s3 = None
 
-	def __init__(self, config):
+	def __init__(self):
 		"""Initialization of class with needed arguments for s3
 
 		Parameters
@@ -33,8 +33,6 @@ class S3Base(object):
 		config : Dict
 				Needed parameters for the s3
 		"""
-		self.s3_client = boto3.client('s3') if config['client'] else config['client']
-		self.s3_resource = boto3.resource('s3') if config['resource'] else config['resource']
 		self.s3_connect()
 		self.logger = logging.getLogger()
 		self.logger.addHandler(logging.StreamHandler())
