@@ -97,6 +97,8 @@ class S3Base(object):
 				Value of the parameter
 		"""
 		ssm_client = boto3.client('ssm', 'eu-central-1')
+		import IPython
+		IPython.embed()
 		obj = ssm_client.get_parameter(Name=name, WithDecryption=False)
 		target_name = obj['Parameter']['Value']
 		
