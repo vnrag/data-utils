@@ -10,6 +10,49 @@ from data_utils.settings import Settings
 from data_utils import generalutils as gu
 from s3fs import S3FileSystem
 
+class SSMBase(object):
+	"""SSMBase class to handle the ssm requests
+	"""
+	ssm_conn = None
+	logger = None
+	settings = Settings()
+	
+	def __init__(self):
+		self.ssm_connect()
+		self.logger = logging.getLogger()
+		self.logger.addHandler(logging.StreamHandler())
+		self.logger.setLevel(logging.CRITICAL)
+		logging.getLogger('boto3').setLevel(logging.CRITICAL)
+		logging.getLogger('botocore').setLevel(logging.CRITICAL)
+		logging.getLogger('ssm').setLevel(logging.CRITICAL)
+		logging.getLogger('urllib3').setLevel(logging.CRITICAL)
+	
+	def ssm_connect(self):
+		session = boto3.Session(
+			aws_access_key_id=self.settings.AWS_ACCESS_KEY_ID,
+			aws_secret_access_key=self.settings.AWS_SECRET_ACCESS_KEY
+			)
+		self.ssm_conn = session.client('ssm', region_name= self.settings.AWS_REGION)
+		
+	
+	def get_ssm_parameter(self, name, encoded= False):
+			"""Returns the value of a parameter from ssm using the provided name
+	
+			Parameters
+			----------
+			name : String
+					Name of the parameter
+	
+			Returns
+			-------
+			String
+					Value of the parameter
+			"""
+			obj = self.ssm_conn.get_parameter(Name=name, WithDecryption=False)
+			target_name = obj['Parameter']['Value']
+			
+			return target_name.encode() if encoded else target_name
+
 class S3Base(object):
 
 	"""S3Base class to handle the s3 requests
@@ -24,7 +67,7 @@ class S3Base(object):
 	s3_conn = None
 	settings = Settings()
 	logger = None
-	s3 = None
+	s3_fs = None
 
 	def __init__(self):
 		"""Initialization of class with needed arguments for s3
@@ -55,11 +98,12 @@ class S3Base(object):
 			self.s3_conn = session.resource('s3', region_name=self.settings.AWS_REGION)
 			if not self.s3_conn:
 				raise ValueError('Invalid Region Name: {}'.format(self.settings.AWS_REGION))
-			self.s3 = S3FileSystem()
+			self.s3_fs = S3FileSystem()
 		elif not self.s3_conn:
 			session = boto3.Session()
 			self.s3_conn = session.resource('s3')
-			self.s3 = S3FileSystem()
+			# only for  parquet
+			self.s3_fs = S3FileSystem()
 		else:
 			print ('Sorry, we do not have any information which enviorment to use, check local_docker Enviroment variable or if you have access rights to .aws credentials')
 
@@ -93,31 +137,14 @@ class S3Base(object):
 		else:
 			return False
 	
-	def get_ssm_parameter(self, name, encoded= False):
-		"""Returns the value of a parameter from ssm using the provided name
-
-		Parameters
-		----------
-		name : String
-				Name of the parameter
-
-		Returns
-		-------
-		String
-				Value of the parameter
-		"""
-		ssm_client = boto3.client('ssm', 'eu-central-1')
-		obj = ssm_client.get_parameter(Name=name, WithDecryption=False)
-		target_name = obj['Parameter']['Value']
-		
-		return target_name.encode() if encoded else target_name
-
 	def list_buckets(self):
 		"""
 		Wrapper to print a list of current buckets.
 		"""
+		buckets = []
 		for bucket in self.s3_conn.buckets.all(): 
-			print (bucket.name)
+			buckets.append(bucket.name)
+		return buckets
 
 	def list_keys(self, bucket, key=None):
 		"""
@@ -223,7 +250,6 @@ class S3Base(object):
         #self.s3_conn.meta.client.upload_fileobj(data, bucket, key)
 		self.s3_conn.Object(bucket, key).put(Body=body)
 	
-	
 	def load_file_from_s3(self,bucket,key):
 		'''
 		Wrapper for loading a file with key from S3 bucket.
@@ -278,7 +304,6 @@ class S3Base(object):
 			print("Master data for this data type is deleted")
 		else:
 			print("Master data for this data type is empty")
-		
 
 	def delete_all_keys_from_s3(self,bucket):
 		'''

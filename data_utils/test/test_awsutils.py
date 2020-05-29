@@ -14,6 +14,7 @@ from moto import mock_s3, mock_ssm
 import pandas as pd
 import os
 import io
+import IPython
 
 EXPORT_BUCKET="OUTPUT"
 
@@ -64,6 +65,27 @@ def ssm(aws_credentials):
         ssm.put_parameter(Name= 'ExternalBucketName', Value=EXPORT_BUCKET, Type='String')
         yield ssm
 
+def test_create_bucket(s3):
+    s3_base = awsu.S3Base()
+    
+    bucket = 'testbucket'
+    s3_base.create_bucket(bucket)
+    assert bucket in s3_base.list_buckets()
+
+def test_create_s3_uri(s3):
+    s3_base = awsu.S3Base()
+    
+    bucket = 'testbucket'
+    key = 'test_key'
+    file = 'test_file'
+    file_extension = 'csv'
+    
+    s3_uri_with_extension = s3_base.create_s3_uri(bucket, key, file, file_extension)
+    assert s3_uri_with_extension == 's3://testbucket/test_key/test_file.csv'
+    
+    s3_uri_without_extension = s3_base.create_s3_uri(bucket, key, file)
+    assert s3_uri_without_extension == 's3://testbucket/test_key/test_file'
+
 def test_upload_parquet_to_s3(s3, ssm):
     """Test function for upload_parquet_to_s3() function in awsutils
     
@@ -75,8 +97,9 @@ def test_upload_parquet_to_s3(s3, ssm):
         Description
     """
     s3_base = awsu.S3Base()
+    ssm_base = awsu.SSMBase()
     
-    bucket = s3_base.get_ssm_parameter('ExternalBucketName')
+    bucket = ssm_base.get_ssm_parameter('ExternalBucketName')
     target_key = 'publishing_group=VNR/provider=facebook/page_id=1234567890/year=2020/month=01/day=01/11111111.parquet'
     
     s3_uri = os.path.join(f's3://{bucket}',target_key)

@@ -16,7 +16,8 @@ REQUIRED = [
     'botocore',
     'pyarrow',
     's3fs',
-    'docopt'
+    'docopt',
+    'python-dotenv'
 ]
 
 # Import the README and use it as the long-description.
