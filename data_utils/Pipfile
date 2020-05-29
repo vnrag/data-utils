@@ -16,6 +16,7 @@ s3fs = "*"
 pytest = "*"
 moto = "*"
 ipython = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
