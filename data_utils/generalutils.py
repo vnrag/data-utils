@@ -83,6 +83,7 @@ def convert_object_type_to_np_array(df, list_of_cols):
     cols_to_be_adjusted = list(set(list_of_cols).intersection(
         object_type_columns))
     if cols_to_be_adjusted:
+        print(f"---- Columns to be adjusted: {cols_to_be_adjusted}")
         for col in cols_to_be_adjusted:
             df[col] = df[col].apply(pd.Series)
 
