@@ -33,7 +33,6 @@ class SSMBase(object):
 			aws_secret_access_key=self.settings.AWS_SECRET_ACCESS_KEY
 			)
 		self.ssm_conn = session.client('ssm', region_name= self.settings.AWS_REGION)
-		
 	
 	def get_ssm_parameter(self, name, encoded= False):
 			"""Returns the value of a parameter from ssm using the provided name
@@ -126,9 +125,9 @@ class S3Base(object):
 	
 	def check_if_object_exists(self, bucket, key):
 		'''
-		Wrapper for checking whether a given bucket already exists or not.
-		return -- True: bucket exists
-				  False: bucket does not exist
+		Wrapper for checking whether a given object already exists in a bucket or not.
+		return -- True: object exists
+				  False: object does not exist
 		'''
 		bucket = self.s3_conn.Bucket(bucket)
 		objs = list(bucket.objects.filter(Prefix=key))
