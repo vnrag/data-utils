@@ -6,7 +6,6 @@ import botocore
 import pandas as pd
 import logging
 import json
-from data_utils.settings import Settings
 from data_utils import generalutils as gu
 from s3fs import S3FileSystem
 
@@ -15,7 +14,6 @@ class SSMBase(object):
 	"""
 	ssm_conn = None
 	logger = None
-	settings = Settings()
 	
 	def __init__(self):
 		self.ssm_connect()
@@ -28,11 +26,8 @@ class SSMBase(object):
 		logging.getLogger('urllib3').setLevel(logging.CRITICAL)
 	
 	def ssm_connect(self):
-		session = boto3.Session(
-			aws_access_key_id=self.settings.AWS_ACCESS_KEY_ID,
-			aws_secret_access_key=self.settings.AWS_SECRET_ACCESS_KEY
-			)
-		self.ssm_conn = session.client('ssm', region_name= self.settings.AWS_REGION)
+		session = boto3.Session()
+		self.ssm_conn = session.client('ssm')
 	
 	def get_ssm_parameter(self, name, encoded= False):
 			"""Returns the value of a parameter from ssm using the provided name
@@ -64,7 +59,6 @@ class S3Base(object):
 			Description
 	"""
 	s3_conn = None
-	settings = Settings()
 	logger = None
 	s3_fs = None
 
@@ -89,30 +83,9 @@ class S3Base(object):
 		"""
 		Wrapper to create a session at AWS S3 with given authorization-key
 		"""
-		if not self.s3_conn and self.settings.local_docker:
-			session = boto3.Session(
-			aws_access_key_id=self.settings.AWS_ACCESS_KEY_ID,
-			aws_secret_access_key=self.settings.AWS_SECRET_ACCESS_KEY
-			)
-			self.s3_conn = session.resource('s3', region_name=self.settings.AWS_REGION)
-			if not self.s3_conn:
-				raise ValueError('Invalid Region Name: {}'.format(self.settings.AWS_REGION))
-			self.s3_fs = S3FileSystem()
-		elif not self.s3_conn:
-			session = boto3.Session()
-			self.s3_conn = session.resource('s3')
-			# only for  parquet
-			self.s3_fs = S3FileSystem()
-		else:
-			print ('Sorry, we do not have any information which enviorment to use, check local_docker Enviroment variable or if you have access rights to .aws credentials')
-
-	def create_bucket(self,bucket):
-		"""
-		Wrapper to create a bucket in S3.
-		"""
-		self.s3_conn.create_bucket(Bucket=bucket,CreateBucketConfiguration={
-			'LocationConstraint': self.settings.AWS_REGION
-		})
+		session = boto3.Session()
+		self.s3_conn = session.resource('s3')
+		self.s3_fs = S3FileSystem()
 		
 	def create_s3_uri(self, bucket, key, tmpFileName, FileType= None):
 		'''creates and s3 uri: s3://bucket/key
@@ -145,35 +118,18 @@ class S3Base(object):
 			buckets.append(bucket.name)
 		return buckets
 
-	def list_keys(self, bucket, key=None):
+	def list_keys(self, bucket, prefix=None):
 		"""
 		Wrapper to print a list of bucket-keys.
 		"""
 		bucket = self.s3_conn.Bucket(bucket)
 		keys_list=[]
-		if key:
-			for obj in bucket.objects.filter(Prefix=key):
+		if prefix:
+			for obj in bucket.objects.filter(Prefix=prefix):
 				keys_list.append(obj.key)
 			return keys_list
 		else:
 			return []
-	
-	def list_all_partitions(self, bucket, partial_key):
-		'''
-		Wrapper for getting list of partitions from S3 bucket.
-		return -- objectlist of file content
-		'''
-		response = self.s3_conn.list_objects(
-    	Bucket=bucket,
-    	Prefix=partial_key
-		)
-		keys_list = []
-		if	(len(response['Contents'])>0):
-			for i in range(0,len(response['Contents'])):
-				keys_list.append(response['Contents'][i]['Key'])
-			return keys_list
-		else:
-			return False
 	
 	def load_list_file_from_s3(self,bucket,key):
 		'''
@@ -192,6 +148,42 @@ class S3Base(object):
 			if e.response['Error']['Code'] == "404":
 				logging.warning("The object does not exist.")
 			return []	    
+
+	def load_file_from_s3(self,bucket,key):
+		'''
+		Wrapper for loading a file with key from S3 bucket.
+		return -- object of file content
+		'''
+		try:
+			if self.check_if_object_exists(bucket, key):
+				bucket = self.s3_conn.Bucket(bucket)
+				object = bucket.Object(key)
+				return object.get()['Body'].read()
+			else: 
+				return None
+		except botocore.exceptions.ClientError as e:
+			logging.warning ("The following error occured while loading %s from bucket %s: %s" % (key,bucket,e))
+			if e.response['Error']['Code'] == "404":
+				logging.warning("The object does not exist.")
+			return None
+
+	def load_json_from_s3(self, bucket, key):
+		'''
+		Wrapper for loading a json-file with key form given S3 bucket.
+		return -- object of json file
+		'''
+		if self.check_if_object_exists(bucket, key):
+			binary_data = self.load_file_from_s3(bucket,key)
+		else: 
+			return None
+
+		if binary_data:
+			try:
+				return json.loads(binary_data.decode('utf-8'))
+			except Exception as e:
+				logging.critical ("could not convert %s, Exception: %s" % (key,e))
+		else:
+			return None
 
 	def upload_parquet_to_s3(self, s3_uri, parquet_context):
 		"""Saves the provided Pandas Dataframe to the provided s3 URI in parquet format
@@ -248,42 +240,6 @@ class S3Base(object):
 		
         #self.s3_conn.meta.client.upload_fileobj(data, bucket, key)
 		self.s3_conn.Object(bucket, key).put(Body=body)
-	
-	def load_file_from_s3(self,bucket,key):
-		'''
-		Wrapper for loading a file with key from S3 bucket.
-		return -- object of file content
-		'''
-		try:
-			if self.check_if_object_exists(bucket, key):
-				bucket = self.s3_conn.Bucket(bucket)
-				object = bucket.Object(key)
-				return object.get()['Body'].read()
-			else: 
-				return None
-		except botocore.exceptions.ClientError as e:
-			logging.warning ("The following error occured while loading %s from bucket %s: %s" % (key,bucket,e))
-			if e.response['Error']['Code'] == "404":
-				logging.warning("The object does not exist.")
-			return None
-
-	def load_json_from_s3(self, bucket, key):
-		'''
-		Wrapper for loading a json-file with key form given S3 bucket.
-		return -- object of json file
-		'''
-		if self.check_if_object_exists(bucket, key):
-			binary_data = self.load_file_from_s3(bucket,key)
-		else: 
-			return None
-
-		if binary_data:
-			try:
-				return json.loads(binary_data.decode('utf-8'))
-			except Exception as e:
-				logging.critical ("could not convert %s, Exception: %s" % (key,e))
-		else:
-			return None
 
 	def delete_file_from_s3(self,bucket,key):
 		'''
@@ -291,11 +247,11 @@ class S3Base(object):
 		'''
 		self.s3_conn.Object(bucket,key).delete()
 
-	def delete_all_keys_from_list(self, bucket, key):
+	def delete_all_keys_from_list(self, bucket, prefix):
 		'''
 		Wrapper for deleteing file from list of keys for given S3 bucket.
 		'''
-		key_list = self.list_keys(bucket, key=key)
+		key_list = self.list_keys(bucket, prefix=prefix)
 		if key_list:
 			for key in key_list:
 				self.delete_file_from_s3(bucket, key)
@@ -303,12 +259,3 @@ class S3Base(object):
 			print("Master data for this data type is deleted")
 		else:
 			print("Master data for this data type is empty")
-
-	def delete_all_keys_from_s3(self,bucket):
-		'''
-		Wrapper for deleting all files from a given S3 bucket.
-		'''
-		if self.settings.DEV:
-			bucket = self.s3_conn.Bucket(bucket)
-			bucket.objects.all().delete()
-			bucket.delete()
