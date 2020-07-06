@@ -67,8 +67,6 @@ class S3Base(object):
 
 		Parameters
 		----------
-		config : Dict
-				Needed parameters for the s3
 		"""
 		self.s3_connect()
 		self.logger = logging.getLogger()
@@ -184,6 +182,16 @@ class S3Base(object):
 				logging.critical ("could not convert %s, Exception: %s" % (key,e))
 		else:
 			return None
+
+	def upload_parquet_with_wrangler(self, s3_uri, context):
+		try:
+			wr.s3.to_parquet(
+				df=context,
+				path=s3_uri
+			)
+			print(f"---- File uploaded to {s3_uri} ----")
+		except botocore.exceptions.ClientError as e:
+			print(f"couldn't upload to {s3_uri}, error: {e}")
 
 	def upload_parquet_to_s3(self, s3_uri, parquet_context):
 		"""Saves the provided Pandas Dataframe to the provided s3 URI in parquet format

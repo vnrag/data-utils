@@ -1,5 +1,16 @@
 {
   "fb_data_url": "https://graph.facebook.com/v6.0/",
   "fb_metric": "metric=page_fans_by_like_source,page_views_total,page_fans_gender_age,page_engaged_users,page_impressions_unique",
-  "matomo_url": "https://matomo.oneclicktrading.de/?module=API&method=Live.getLastVisitsDetails&idSite=all&period=day&date="
+  "matomo_url": "https://matomo.oneclicktrading.de/?module=API&method=Live.getLastVisitsDetails&idSite=all&period=day&date=",
+  "epi_smart_campaigns_url": "https://api.campaign.episerver.net/rest/{client_id}/smartcampaigns?limit=1000&sort=created",
+  "epi_campaign_url": "https://api.campaign.episerver.net/rest/{client_id}/smartcampaigns/{campaign_id}",
+  "epi_mailing_id_folder_url": "https://api.campaign.episerver.net/rest/{client_id}/folders?entityId={mailing_id}",
+  "epi_campaign_report_url": "https://api.campaign.episerver.net/rest/{client_id}/smartcampaigns/{campaign_id}/report",
+  "epi_mailing_folder_url": "https://api.campaign.episerver.net/rest/{client_id}/folders?type=mailing",
+  "epi_folder_target_key": "provider=episerver/object=folder/partition_client_id={client_id}/folder.parquet",
+  "epi_campaign_target_key": "provider=episerver/object=campaign/partition_client_id={client_id}/campaign.parquet",
+  "epi_campaign_report_target_key": "provider=episerver/object=campaign-report/partition_client_id={client_id}/campaign-report.parquet",
+  "epi_mailing_target_key": "provider=episerver/object=mailing/partition_client_id={client_id}/mailing.parquet",
+  "epi_mailing_report_target_key": "provider=episerver/object=mailing-report/partition_client_id={client_id}/partition_year={year}/{month}/{day}/mailing-report.parquet",
+  "epi_array_list":["recipientLists.recipientListIds", "childrenIds", "folderIds"]
 }
