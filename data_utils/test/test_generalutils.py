@@ -3,6 +3,7 @@
 from data_utils import generalutils as gu
 import pytest
 import pandas as pd
+import datetime
 
 def test_get_unix_timestamp():
     """Test function for get_unix_timestamp() function in generalutils
@@ -40,4 +41,35 @@ def test_get_target_prefix():
     assert publishing_group in prefix
     assert f'provider={provider}' in prefix
     assert f'partition_page_id={page_id}' in prefix
-    
+
+def test_verify_int():
+    test_int = gu.verify_int(10)
+    assert test_int == True
+    test_int = gu.verify_int(10.5)
+    assert test_int == True
+    test_int = gu.verify_int('10')
+    assert test_int == True
+    test_int = gu.verify_int('A10')
+    assert test_int == False
+
+def test_verify_and_convert_bool():
+    test_bool = gu.verify_and_convert_bool(True)
+    assert test_bool == True
+    test_bool = gu.verify_and_convert_bool('False')
+    assert test_bool == False
+    test_bool = gu.verify_and_convert_bool(False)
+    assert test_bool == False
+    test_bool = gu.verify_and_convert_bool("True")
+    assert test_bool == True
+    test_bool = gu.verify_and_convert_bool("true")
+    assert test_bool == True
+    test_bool = gu.verify_and_convert_bool("0")
+    assert test_bool == False
+
+def test_check_start_stop_date():
+    start_str = "2019-11-11"
+    stop_str = "2019-11-12"
+    start_date, stop_date = gu.check_start_stop_date(start_str,stop_str)
+    # assert 'datetime.datetime' in type(start_date)
+    assert type(start_date) == datetime.datetime
+    assert type(stop_date) == datetime.datetime

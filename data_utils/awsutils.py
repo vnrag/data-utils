@@ -1,9 +1,51 @@
 """A library containing commonly used utils for AWS API
 """
+import os
 import boto3
 import botocore
-import awswrangler as wr
+import pandas as pd
+import logging
+import json
+from data_utils import generalutils as gu
+from s3fs import S3FileSystem
 
+class SSMBase(object):
+	"""SSMBase class to handle the ssm requests
+	"""
+	ssm_conn = None
+	logger = None
+	
+	def __init__(self):
+		self.ssm_connect()
+		self.logger = logging.getLogger()
+		self.logger.addHandler(logging.StreamHandler())
+		self.logger.setLevel(logging.CRITICAL)
+		logging.getLogger('boto3').setLevel(logging.CRITICAL)
+		logging.getLogger('botocore').setLevel(logging.CRITICAL)
+		logging.getLogger('ssm').setLevel(logging.CRITICAL)
+		logging.getLogger('urllib3').setLevel(logging.CRITICAL)
+	
+	def ssm_connect(self):
+		session = boto3.Session()
+		self.ssm_conn = session.client('ssm')
+	
+	def get_ssm_parameter(self, name, encoded= False):
+			"""Returns the value of a parameter from ssm using the provided name
+	
+			Parameters
+			----------
+			name : String
+					Name of the parameter
+	
+			Returns
+			-------
+			String
+					Value of the parameter
+			"""
+			obj = self.ssm_conn.get_parameter(Name=name, WithDecryption=False)
+			target_name = obj['Parameter']['Value']
+			
+			return target_name.encode() if encoded else target_name
 
 class S3Base(object):
 
@@ -16,6 +58,9 @@ class S3Base(object):
 	s3_resource : TYPE
 			Description
 	"""
+	s3_conn = None
+	logger = None
+	s3_fs = None
 
 	def __init__(self):
 		"""Initialization of class with needed arguments for s3
@@ -23,27 +68,120 @@ class S3Base(object):
 		Parameters
 		----------
 		"""
-		self.s3_client = boto3.client('s3')
-		self.s3_resource = boto3.resource('s3')
-
-	def get_ssm_parameter(self, name):
-		"""Returns the value of a parameter from ssm using the provided name
-
-		Parameters
-		----------
-		name : String
-				Name of the parameter
-
-		Returns
-		-------
-		String
-				Value of the parameter
+		self.s3_connect()
+		self.logger = logging.getLogger()
+		self.logger.addHandler(logging.StreamHandler())
+		self.logger.setLevel(logging.CRITICAL)
+		logging.getLogger('boto3').setLevel(logging.CRITICAL)
+		logging.getLogger('botocore').setLevel(logging.CRITICAL)
+		logging.getLogger('s3transfer').setLevel(logging.CRITICAL)
+		logging.getLogger('urllib3').setLevel(logging.CRITICAL)
+	
+	def s3_connect(self):
 		"""
-		ssm_client = boto3.client('ssm', 'eu-central-1')
-		obj = ssm_client.get_parameter(Name=name, WithDecryption=False)
-		target_name = obj['Parameter']['Value'].encode()
+		Wrapper to create a session at AWS S3 with given authorization-key
+		"""
+		session = boto3.Session()
+		self.s3_conn = session.resource('s3')
+		self.s3_fs = S3FileSystem()
+		
+	def create_s3_uri(self, bucket, key, tmpFileName, FileType= None):
+		'''creates and s3 uri: s3://bucket/key
+		
+		Arguments:
+			bucket {string} -- bucket name
+			key {string} -- key path
+		'''
+		return gu.get_target_path(['s3://',bucket, key, tmpFileName], FileType)
+	
+	def check_if_object_exists(self, bucket, key):
+		'''
+		Wrapper for checking whether a given object already exists in a bucket or not.
+		return -- True: object exists
+				  False: object does not exist
+		'''
+		bucket = self.s3_conn.Bucket(bucket)
+		objs = list(bucket.objects.filter(Prefix=key))
+		if len(objs) > 0 and objs[0].key == key:
+			return True
+		else:
+			return False
+	
+	def list_buckets(self):
+		"""
+		Wrapper to print a list of current buckets.
+		"""
+		buckets = []
+		for bucket in self.s3_conn.buckets.all(): 
+			buckets.append(bucket.name)
+		return buckets
 
-		return target_name.decode('UTF-8')
+	def list_keys(self, bucket, prefix=None):
+		"""
+		Wrapper to print a list of bucket-keys.
+		"""
+		bucket = self.s3_conn.Bucket(bucket)
+		keys_list=[]
+		if prefix:
+			for obj in bucket.objects.filter(Prefix=prefix):
+				keys_list.append(obj.key)
+			return keys_list
+		else:
+			return []
+	
+	def load_list_file_from_s3(self,bucket,key):
+		'''
+		Wrapper for getting file list with key from S3 bucket.
+		return -- objectlist of file content
+		'''
+		try:
+			if self.check_if_object_exists(bucket, key):
+				bucket = self.s3_conn.Bucket(bucket)
+				object = bucket.Object(key)
+				return object.get()['Body'].read().decode('utf-8').split('\n')
+			else: 
+				return None
+		except botocore.exceptions.ClientError as e:
+			logging.warning (f'The following error occured while loading {key} from bucket {bucket}: {e}')
+			if e.response['Error']['Code'] == "404":
+				logging.warning("The object does not exist.")
+			return []	    
+
+	def load_file_from_s3(self,bucket,key):
+		'''
+		Wrapper for loading a file with key from S3 bucket.
+		return -- object of file content
+		'''
+		try:
+			if self.check_if_object_exists(bucket, key):
+				bucket = self.s3_conn.Bucket(bucket)
+				object = bucket.Object(key)
+				return object.get()['Body'].read()
+			else: 
+				return None
+		except botocore.exceptions.ClientError as e:
+			logging.warning ("The following error occured while loading %s from bucket %s: %s" % (key,bucket,e))
+			if e.response['Error']['Code'] == "404":
+				logging.warning("The object does not exist.")
+			return None
+
+	def load_json_from_s3(self, bucket, key):
+		'''
+		Wrapper for loading a json-file with key form given S3 bucket.
+		return -- object of json file
+		'''
+		if self.check_if_object_exists(bucket, key):
+			binary_data = self.load_file_from_s3(bucket,key)
+		else: 
+			return None
+
+		if binary_data:
+			try:
+				return json.loads(binary_data.decode('utf-8'))
+			except Exception as e:
+				logging.critical ("could not convert %s, Exception: %s" % (key,e))
+		else:
+			return None
 
 	def upload_parquet_with_wrangler(self, s3_uri, context):
 		try:
@@ -74,4 +212,58 @@ class S3Base(object):
 			parquet_context.to_parquet(s3_uri, allow_truncated_timestamps=True)
 			return f'file uploaded to {s3_uri}'
 		except botocore.exceptions.ClientError as e:
-			return f'couldn"t upload to {s3_uri}, error: {e}'
+			return f'couldn\'t upload to {s3_uri}, error: {e}'
+	
+	def upload_as_jsonp_to_s3(self, json_context, bucket, key):
+		'''
+		Wrapper to upload a jsonp-file with key to S3 bucket.
+		'''
+		# Uploads the given file using a managed uploader, which will split up large
+		# files automatically and upload parts in parallel.
+		# self.s3_conn.Object(bucket, key).put(Body=json_context, 'rb')
+		self.upload_object_to_s3(json_context, bucket, key)
+
+	def upload_as_json_to_s3(self, json_context, bucket, key):
+		'''
+		Wrapper to upload json-file with key to S3 bucket.
+		'''
+		# converting json object to string
+		json_string = json.dumps(json_context)
+		self.upload_object_to_s3(json_string, bucket, key)
+
+	def upload_as_csv_to_s3(self, csv_context, bucket, key):
+		'''
+		Wrapper to upload a csv-file with key to a S3 bucket.
+		'''
+		# converting json object to string
+		
+		self.upload_object_to_s3(csv_context, bucket, key)
+
+	def upload_object_to_s3(self, body, bucket, key):
+		'''
+		Wrapper to upload an unspecified file with key to a S3 bucket.
+		'''
+		# Uploads the given file using a managed uploader, which will split up large
+		# files automatically and upload parts in parallel.
+		
+        #self.s3_conn.meta.client.upload_fileobj(data, bucket, key)
+		self.s3_conn.Object(bucket, key).put(Body=body)
+
+	def delete_file_from_s3(self,bucket,key):
+		'''
+		Wrapper for deleteing a file with key from given S3 bucket.
+		'''
+		self.s3_conn.Object(bucket,key).delete()
+
+	def delete_all_keys_from_list(self, bucket, prefix):
+		'''
+		Wrapper for deleteing file from list of keys for given S3 bucket.
+		'''
+		key_list = self.list_keys(bucket, prefix=prefix)
+		if key_list:
+			for key in key_list:
+				self.delete_file_from_s3(bucket, key)
+				print("Key file: %s is deleted" % key)
+			print("Master data for this data type is deleted")
+		else:
+			print("Master data for this data type is empty")
