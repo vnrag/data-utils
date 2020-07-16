@@ -17,7 +17,8 @@ REQUIRED = [
     'pyarrow',
     's3fs',
     'docopt',
-    'python-dotenv'
+    'python-dotenv',
+    'awswrangler'
 ]
 
 # Import the README and use it as the long-description.

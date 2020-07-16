@@ -4,6 +4,7 @@ from data_utils import generalutils as gu
 import pytest
 import pandas as pd
 import datetime
+import IPython
 
 def test_get_unix_timestamp():
     """Test function for get_unix_timestamp() function in generalutils
@@ -73,3 +74,13 @@ def test_check_start_stop_date():
     # assert 'datetime.datetime' in type(start_date)
     assert type(start_date) == datetime.datetime
     assert type(stop_date) == datetime.datetime
+
+def test_create_time_partition():
+    """Test function for create_time_partition() function in generalutils
+    """
+    test_date = datetime.date.today()
+    time_partition = gu.create_time_partition(test_date)
+    assert time_partition == f'partition_year={test_date.year}/partition_month={test_date.month}/partition_day={test_date.day}'
+    
+    time_partition = gu.create_time_partition(test_date, month= True)
+    assert time_partition == f'partition_year={test_date.year}/partition_month={test_date.month}'

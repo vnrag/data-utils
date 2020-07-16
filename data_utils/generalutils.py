@@ -327,3 +327,18 @@ def check_start_stop_date(start_date, stop_date):
         start_date = dt.datetime.now() - dt.timedelta(days=1)
         # there is no stop date so we return only one day
         return start_date, start_date
+
+
+def create_time_partition(partition_date, month=False):
+	'''
+	Formats partition_date for use as path in buckets.
+
+	return -- formatted partition_date for uns in file path
+	'''
+	# needs datetime !
+	if month:
+		return os.path.join(f'partition_year={str(partition_date.year)}',f'partition_month={str(partition_date.month)}' )
+		#return partition_date.strftime("year=%Y/month=%m")
+	else:
+		return os.path.join(f'partition_year={str(partition_date.year)}',f'partition_month={str(partition_date.month)}',f'partition_day={str(partition_date.day)}')
+		#return partition_date.strftime("year=%Y/month=%m/day=%d")
