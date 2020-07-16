@@ -192,7 +192,7 @@ class S3Base(object):
 			)
 			print(f"---- File uploaded to {s3_uri} ----")
 		except botocore.exceptions.ClientError as e:
-			print(f"couldn"t upload to {s3_uri}, error: {e}")
+			print(f"couldn't upload to {s3_uri}, error: {e}")
 
 	def upload_parquet_to_s3(self, s3_uri, parquet_context):
 		"""Saves the provided Pandas Dataframe to the provided s3 URI in parquet format
@@ -269,8 +269,6 @@ class S3Base(object):
 		else:
 			print("Master data for this data type is empty")
 
-
-	# 	def create_data_key(self, partition_date, data_type, file_name, parquet=None, month=False, report=False):
 	def create_data_key(self, partition_date, file_name, data_type, mandator, personal=False,  parquet=None, month=False, report=False):
 		"""
 		Creates entire Filename with for given partition_date and data_type including path.
@@ -280,16 +278,14 @@ class S3Base(object):
 		# platformx.data.etl.raw/{publishing_group}/{mandator}/{year}/{month}/{day}/
 		if parquet:
 			time_partition = gu.create_time_partition(partition_date)
-			return gu.get_target_path(f"personal={personal}", f"transaction={data_type}", f"partition_mandator={mandator}", time_partition)
+			return gu.get_target_path([f"personal={personal}", f"transaction={data_type}", f"partition_mandator={mandator}", time_partition])
 		elif report:
 			time_partition = gu.create_time_partition(partition_date, month)
-			return gu.get_target_path("report", "partition",  f"mandator={mandator}", time_partition, file_name)
+			return gu.get_target_path(["report", "partition",  f"mandator={mandator}", time_partition, file_name])
 		else:
 			time_partition = gu.create_time_partition(partition_date, month)
-			return gu.get_target_path(f"personal={personal}", f"transaction={data_type}", f"partition_mandator={mandator}", time_partition, file_name)
+			return gu.get_target_path([f"personal={personal}", f"transaction={data_type}", f"partition_mandator={mandator}", time_partition, file_name])
 	
-	
-	# 	def store_raw_data_in_s3(self, partition_date, data_type, file_name, data):
 	def store_raw_data_in_s3(self, partition_date, data_type, data, personal, mandator, export_bucket, parquet=False, chunk=0, chunk_name=False):
 		"""
 		Uploads for given data_type and partition_date corresponding data as raw json or parquet file_name in S3 bucket.
@@ -311,9 +307,8 @@ class S3Base(object):
 
 		return -- path and filename for the report-log for data_type
 		'''
-		time_partition = self.create_time_partition(process_start_date)
-		return gu.get_target_path(f"type={export_type}", time_partition, f"{data_type}_{mandator}_{str(index)}_{process_start_date.strftime('%H%M%S')}.json")
-
+		time_partition = gu.create_time_partition(process_start_date)
+		return gu.get_target_path([f"type={export_type}", time_partition, f"{data_type}_{mandator}_{str(index)}_{process_start_date.strftime('%H%M%S')}.json"])
 	
 	def store_report_log_in_s3(self, export_type, data, process_start_date, index, data_type, mandator, log_bucket= None):
 		'''
@@ -331,8 +326,7 @@ class S3Base(object):
 
 		return -- partial filename for data_type with path to delete files under this directory
 		'''
-		return gu.get_target_path(f"personal={str(personal)}", f"master_data={data_type}", f"partition_mandator={mandantor}")
-
+		return gu.get_target_path([f"personal={str(personal)}", f"master_data={data_type}", f"partition_mandator={mandantor}"])
 	
 	def delete_raw_master_data_in_s3(self, data_type, personal, export_bucket, mandantor, parquet=None):
 		'''
@@ -344,3 +338,32 @@ class S3Base(object):
 		else:
 			partial_data_key_deletion = self.create_partial_data_key_deletion(data_type, mandantor, personal=personal)
 			self.delete_all_keys_from_list(export_bucket, partial_data_key_deletion)
+	
+	def create_data_key_dimension(self, file_name, data_type, chunk, mandator, personal=False, parquet=False):
+		'''
+		Creates entire Filename for given data_type including path.
+
+		return -- filename for data_type with path
+		'''
+		if parquet:
+			return gu.get_target_path([f"personal={str(personal)}", f"master_data={data_type}", f"partition_mandator={mandator}", f"partition_chunk={chunk}"])
+		else:
+			return gu.get_target_path([f"personal={str(personal)}", f"master_data={data_type}", f"partition_mandator={mandator}", f"partition_chunk={chunk}", file_name])
+
+	def store_raw_master_data_in_s3(self, data_type, file_name, data, personal, chunk, export_bucket, mandator, parquet=None):
+		'''
+		Uploads for given data_type corresponding master data as raw json or parquet file_name in S3 bucket.
+		'''
+		if parquet:
+			data_key = self.create_data_key_dimension(f"{str(file_name)}.parquet",data_type, chunk, mandator, personal=personal, parquet=True)
+			s3_uri = self.create_s3_uri(export_bucket, data_key, str(file_name), FileType= 'parquet')
+			self.upload_parquet_to_s3(s3_uri, data)
+		else:
+			data_key = self.create_data_key_dimension("{str(file_name)}.jsonp", data_type, chunk, mandator, personal=personal)
+			self.upload_as_jsonp_to_s3(data, export_bucket, data_key)
+
+	def store_custom_data_in_s3_csv(self, export_bucket, key ,data):
+		'''
+		Uploads for given fact_type corresponding data as csv file_name in S3 bucket.
+		'''
+		self.upload_as_csv_to_s3(data, export_bucket, key)
