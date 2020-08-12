@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 sphinx = "*"
-pandas = "*"
+pandas = "==1.0.5"
 urllib3 = "*"
 boto3 = "*"
 botocore = "*"
