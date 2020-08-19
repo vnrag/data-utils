@@ -161,3 +161,33 @@ def map_server_folder(df):
     df['client_id'] = df['client_id'].astype('str')
     return df
 
+
+def adjust_epi_blacklist_json_reason(blacklist_json):
+    """Adjusts the value of the reason string so that each reason can be split
+    
+    Arguments:
+        blacklist_json {[json]} -- [List of blacklists]
+
+    Returns:
+        [json] -- [Adjusted blacklist json]
+    """
+    for blacklist in blacklist_json['elements']:
+        blacklist['reason']= dict(r.split("=")  \
+            for r in blacklist['reason'].split(";"))
+    return blacklist_json
+
+
+def check_epi_blaclist_reason_columns(blacklist_df):
+    """Checks that there are no missing reason columns columns
+    
+    Arguments:
+        blacklist_df {[pandas dataframe]} -- [List of blacklists]
+
+    Returns:
+        [pandas dataframe] -- [Adjusted blacklist dataframe]
+    """
+    reasons_col = ['reason.type','reason.rule','reason.mailing','reason.m2u']
+    for col in reasons_col:
+        if col not in blacklist_df.columns:
+            blacklist_df[col] = None
+    return blacklist_df
