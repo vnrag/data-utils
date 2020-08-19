@@ -171,10 +171,15 @@ def adjust_epi_blacklist_json_reason(blacklist_json):
     Returns:
         [json] -- [Adjusted blacklist json]
     """
-    for blacklist in blacklist_json['elements']:
-        blacklist['reason']= dict(r.split("=")  \
-            for r in blacklist['reason'].split(";"))
-    return blacklist_json
+    try:
+        for blacklist in blacklist_json['elements']:
+            blacklist['reason']= dict(r.split("=")  \
+                for r in blacklist['reason'].split(";"))
+        return blacklist_json
+    
+    except Exception as e:
+        print(e)
+        return blacklist_json
 
 
 def check_epi_blaclist_reason_columns(blacklist_df):
