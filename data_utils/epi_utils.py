@@ -146,7 +146,7 @@ def get_folder_ids(folder_json):
     folders = []
     try:
         for i in range(len(folder_json['elements'])):
-            folders.append(json.dumps(int(folder_json['elements'][i]['id'])))
+            folders.append(json.dumps(folder_json['elements'][i]['id']))
         return folders
     except:
         return folders
