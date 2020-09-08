@@ -71,6 +71,36 @@ def concat_data_frame(list_of_df):
     return df
 
 
+def flatten_list_col(df, target_col):
+    """Flattens dataframe based on the column with list value
+
+    Parameters
+    ----------
+    df : Dataframe
+        Description
+
+    target_col: column with list values
+
+    Returns
+    -------
+    TYPE
+        Description
+    """
+
+    def flatten_list(val):
+        val = ','.join(list(map(lambda x: str(x), val)))
+        return val
+
+    cols = df.columns.values.tolist()
+    cols.remove(target_col)
+    df[target_col] = df[target_col].apply(flatten_list)
+    new_df = (df.set_index(cols).apply(
+        lambda x: x.str.split(',').explode()
+    ).reset_index())
+
+    return new_df
+
+
 def convert_object_type_to_np_array(df, list_of_cols):
     """Converts object type of df to np array
 
