@@ -143,13 +143,13 @@ def get_folder_ids(folder_json):
     Returns:
         [list] -- [List of json]
     """
+    folders = []
     try:
-        folders = []
         for i in range(len(folder_json['elements'])):
             folders.append(json.dumps(int(folder_json['elements'][i]['id'])))
         return folders
     except:
-        return None
+        return folders
 
 
 def map_server_folder(df):
