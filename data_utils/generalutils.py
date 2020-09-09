@@ -71,19 +71,21 @@ def concat_data_frame(list_of_df):
     return df
 
 
-def flatten_list_col(df, target_col):
+def flatten_list_col(df, target_col, type_bytes=False):
     """Flattens dataframe based on the column with list value
 
     Parameters
     ----------
     df : Dataframe
+    target_col: Column we want to flatten
+    type_bytes: Condition to check if dtype is bytes
         Description
 
     target_col: column with list values
 
     Returns
     -------
-    TYPE
+    TYPE: Pandas-DF
         Description
     """
 
@@ -91,12 +93,19 @@ def flatten_list_col(df, target_col):
         val = ','.join(list(map(lambda x: str(x), val)))
         return val
 
+    def flatten_bytes_list(val):
+        val = ','.join(list(map(lambda x: str(x.decode('utf-8')), val)))
+        return val
+
     cols = df.columns.values.tolist()
     cols.remove(target_col)
-    df[target_col] = df[target_col].apply(flatten_list)
+    df[target_col] = df[target_col].apply(flatten_list if not type_bytes
+                                          else flatten_bytes_list)
     new_df = (df.set_index(cols).apply(
         lambda x: x.str.split(',').explode()
     ).reset_index())
+
+    new_df = new_df.convert_dtypes()
 
     return new_df
 
