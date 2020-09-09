@@ -17,7 +17,7 @@ class SSMBase(object):
 	logger = None
 	
 	def __init__(self):
-		self.ssm_connect()
+		# self.ssm_connect()
 		self.logger = logging.getLogger()
 		self.logger.addHandler(logging.StreamHandler())
 		self.logger.setLevel(logging.CRITICAL)
