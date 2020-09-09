@@ -99,8 +99,8 @@ def flatten_list_col(df, target_col, type_bytes=False):
 
     cols = df.columns.values.tolist()
     cols.remove(target_col)
-    df[target_col] = df[target_col].apply(flatten_list if not type_bytes
-                                          else flatten_bytes_list)
+    df[target_col] = df[target_col].apply(flatten_bytes_list if type_bytes
+                                          else flatten_list)
     new_df = (df.set_index(cols).apply(
         lambda x: x.str.split(',').explode()
     ).reset_index())
