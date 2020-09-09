@@ -103,6 +103,10 @@ def flatten_bytes_list(val):
     return val
 
 
+def convert_string_col_to_int(df, col):
+    converted_df = pd.to_numeric(df[col]).astype('Int64')
+    return converted_df
+
 def convert_object_type_to_np_array(df, list_of_cols):
     """Converts object type of df to np array
 
