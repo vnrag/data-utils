@@ -71,17 +71,13 @@ def concat_data_frame(list_of_df):
     return df
 
 
-def flatten_list_col(df, target_col, type_bytes=False):
+def flatten_list_col(df, index_cols):
     """Flattens dataframe based on the column with list value
 
     Parameters
     ----------
     df : Dataframe
-    target_col: Column we want to flatten
-    type_bytes: Condition to check if dtype is bytes
-        Description
-
-    target_col: column with list values
+    index_cols: Column we want to keep as index
 
     Returns
     -------
@@ -89,25 +85,22 @@ def flatten_list_col(df, target_col, type_bytes=False):
         Description
     """
 
-    def flatten_list(val):
-        val = ','.join(list(map(lambda x: str(x), val)))
-        return val
-
-    def flatten_bytes_list(val):
-        val = ','.join(list(map(lambda x: str(x.decode('utf-8')), val)))
-        return val
-
-    cols = df.columns.values.tolist()
-    cols.remove(target_col)
-    df[target_col] = df[target_col].apply(flatten_bytes_list if type_bytes
-                                          else flatten_list)
-    new_df = (df.set_index(cols).apply(
+    df = (df.set_index(index_cols).apply(
         lambda x: x.str.split(',').explode()
     ).reset_index())
 
-    new_df = new_df.convert_dtypes()
-
+    new_df = df.convert_dtypes()
     return new_df
+
+
+def flatten_list(val):
+    val = ','.join(list(map(lambda x: str(x), val)))
+    return val
+
+
+def flatten_bytes_list(val):
+    val = ','.join(list(map(lambda x: str(x.decode('utf-8')), val)))
+    return val
 
 
 def convert_object_type_to_np_array(df, list_of_cols):
