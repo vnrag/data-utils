@@ -16,8 +16,8 @@ class SSMBase(object):
 	ssm_conn = None
 	logger = None
 	
-	def __init__(self):
-		self.ssm_connect()
+	def __init__(self, external_sess=None):
+		self.ssm_conn = external_sess if external_sess else self.ssm_connect()
 		self.logger = logging.getLogger()
 		self.logger.addHandler(logging.StreamHandler())
 		self.logger.setLevel(logging.CRITICAL)
@@ -28,7 +28,8 @@ class SSMBase(object):
 	
 	def ssm_connect(self):
 		session = boto3.Session()
-		self.ssm_conn = session.client("ssm")
+		ssm_conn = session.client("ssm")
+		return ssm_conn
 	
 	def get_ssm_parameter(self, name, encoded= False):
 			"""Returns the value of a parameter from ssm using the provided name
