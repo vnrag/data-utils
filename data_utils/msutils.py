@@ -19,47 +19,58 @@ class MSUtils(object):
     """
     ssm_conn = None
     logger = None
-    download_path = None
     provider = "onedrive"
 
-    def __init__(self, download_path, folder=False, external_sess=None):
+    def __init__(
+            self,
+            onedrive_site,
+            onedrive_path,
+            onedrive_apikey,
+            onedrive_token,
+            folder=False,
+            external_sess=None):
         """[summary]
 
-        Args:
-                download_path ([type]): [description]
-                folder (bool, optional): [description]. Defaults to False.
-                external_sess ([type], optional): [description]. Defaults to None.
-        """
-        self.ssm_conn = external_sess if external_sess else self.ssm_connect()
+                Args:
+                        onedrive_site ([type]): [description]
+                        onedrive_path ([type]): [description]
+                        folder (bool, optional): [description]. Defaults to False.
+                """
         self.logger = logging.getLogger()
         self.logger.addHandler(logging.StreamHandler())
         self.logger.setLevel(logging.CRITICAL)
-        logging.getLogger("urllib3").setLevel(logging.CRITICAL)
-        logging.getLogger("onedrive_download").setLevel(logging.CRITICAL)
-
-        self.download_path = download_path
-        self.folder = folder
+        if folder:
+                self.folder = folder
+        # get all requiered  credentials
+        # example pseudo code, please use utils
+        self.api_key = onedrive_apikey
+        self.token = onedrive_token
+        self.onedrive_site = onedrive_site
+        self.onedrive_path = onedrive_path
 
     # This function will later be removed and used in another repository, it is not part
     # of data utils, but now we can leave it here as integrated main function
-    # you can use this also for creating the process flow with authentification and uploading
+    # you can use this is an example for the process flow with
+    # authentification and uploading
     def fetch_data_from_onedrive(self):
         """[summary]
         """
-        one_drive_access_url = self.create_url_for_onedrive()
-        auth_token = self.get_auth_token_onedrive_app()
+        one_drive_access_url = self.create_url_for_onedrive(
+            onedrive_site, onedrive_path)
+        auth_token = self.get_auth_token_onedrive_app(self.token)
         one_drive_path = self.build_one_drive_path()
         if self.folder:
             one_drive_file_list = []
-            one_drive_file_list = self.get_all_elements_in_folder()
+            one_drive_file_list = self.get_all_elements_in_folder(self.api_key)
             for element in folder:
                 try:
                     one_drive_file = self.download_element_from_onedrive(
-                        one_drive_path, auth_token)
-                    upload_key = self.transform_onedrive_folder_structure_to_s3_structure(
+                        one_drive_path, auth_token, self.api_key)
+                    upload_key = self.transform_onedrive_folder_structure_to_s3_structure_key(
                         one_drive_path)
-					### success_message = awsutils.upload_to_se(bucket, upload_key)
-                    logging.info(f"successfully uploaded {one_drive_path} to s3: {success_message}")
+                    ### success_message = awsutils.upload_to_se(one_drive_file, bucket, upload_key)
+                    logging.info(
+                        f"successfully uploaded {one_drive_path} to s3: {success_message}")
                 except Exception as e:
                     logging.warning(
                         f"error by processing {one_drive_path}: {e}")
@@ -67,14 +78,15 @@ class MSUtils(object):
             try:
                 one_drive_file = self.download_element_from_onedrive(
                     one_drive_path, auth_token)
-                upload_key = self.transform_onedrive_folder_structure_to_s3_structure(
+                upload_key = self.transform_onedrive_folder_structure_to_s3_structure_key(
                     one_drive_path)
-					### success_message = awsutils.upload_to_se(bucket, upload_key)
-                    logging.info(f"successfully uploaded {one_drive_path} to s3: {success_message}")
+                ### success_message = awsutils.upload_to_se(one_drive_file, bucket, upload_key)
+                logging.info(
+                    f"successfully uploaded {one_drive_path} to s3: {success_message}")
             except Exception as e:
                 logging.warning(f"error by processing {one_drive_path}: {e}")
 
-    def transform_onedrive_folder_structure_to_s3_structure(
+    def transform_onedrive_folder_structure_to_s3_structure_key(
             self, one_drive_path):
         """[summary]
 
