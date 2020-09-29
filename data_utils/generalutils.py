@@ -37,7 +37,7 @@ def get_config():
     return load_config()
 
 
-def create_data_frame(data=None):
+def create_data_frame(data=None, columns= None):
     """Converts input data into a pandas DataFrame
 
     Parameters
@@ -50,7 +50,7 @@ def create_data_frame(data=None):
     TYPE
         Description
     """
-    df = pd.DataFrame(data)
+    df = pd.DataFrame(data=data, columns=columns)
     return df
 
 
