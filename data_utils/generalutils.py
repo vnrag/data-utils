@@ -103,6 +103,25 @@ def flatten_bytes_list(val):
     return val
 
 
+def check_if_is_pandas_df(df_val):
+    """
+
+    Parameters
+    ----------
+    df_val: python variable
+
+    Returns bool
+    -------
+
+    """
+    is_df = False
+
+    if isinstance(df_val, pd.DataFrame):
+        is_df = True
+
+    return is_df
+
+
 def convert_string_col_to_int(df, col):
     converted_df = pd.to_numeric(df[col]).astype('Int64')
     return converted_df
