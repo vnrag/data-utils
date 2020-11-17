@@ -194,6 +194,7 @@ class S3Base(object):
 			print(f"---- File uploaded to {s3_uri} ----")
 		except botocore.exceptions.ClientError as e:
 			print(f"couldn't upload to {s3_uri}, error: {e}")
+			raise
 
 	def upload_parquet_to_s3(self, s3_uri, parquet_context):
 		"""Saves the provided Pandas Dataframe to the provided s3 URI in parquet format
