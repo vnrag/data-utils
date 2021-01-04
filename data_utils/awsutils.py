@@ -185,6 +185,12 @@ class S3Base(object):
 		else:
 			return None
 
+	def load_parquet_with_wrangler(self, s3_uri):
+		try:
+			return wr.s3.read_parquet(s3_uri)
+		except Exception as e:
+			logging.critical(f"couldn't read paruqet file {s3_uri}, Exception {e}")
+
 	def upload_parquet_with_wrangler(self, s3_uri, context):
 		try:
 			wr.s3.to_parquet(
@@ -193,8 +199,7 @@ class S3Base(object):
 			)
 			print(f"---- File uploaded to {s3_uri} ----")
 		except botocore.exceptions.ClientError as e:
-			print(f"couldn't upload to {s3_uri}, error: {e}")
-			raise
+			logging.critical(f"couldn't upload to {s3_uri}, error: {e}")
 
 	def upload_parquet_to_s3(self, s3_uri, parquet_context):
 		"""Saves the provided Pandas Dataframe to the provided s3 URI in parquet format
