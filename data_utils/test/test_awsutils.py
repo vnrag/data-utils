@@ -83,10 +83,10 @@ def s3(aws_credentials):
     """
     with mock_s3():
         s3 = boto3.resource('s3')
-        s3.create_bucket(Bucket= os.environ.get('CONFIG_BUCKET'))
-        s3.create_bucket(Bucket= os.environ.get('INPUT_BUCKET'))
-        s3.create_bucket(Bucket= os.environ.get('EXPORT_BUCKET'))
-        s3.create_bucket(Bucket= os.environ.get('LOG_BUCKET'))
+        s3.create_bucket(Bucket= os.environ.get('CONFIG_BUCKET'),CreateBucketConfiguration={'LocationConstraint': 'eu-central-1'})
+        s3.create_bucket(Bucket= os.environ.get('INPUT_BUCKET'),CreateBucketConfiguration={'LocationConstraint': 'eu-central-1'})
+        s3.create_bucket(Bucket= os.environ.get('EXPORT_BUCKET'),CreateBucketConfiguration={'LocationConstraint': 'eu-central-1'})
+        s3.create_bucket(Bucket= os.environ.get('LOG_BUCKET'),CreateBucketConfiguration={'LocationConstraint': 'eu-central-1'})
         
         some_binary_data = b'Here we have some data\nand this is a new line'
         more_binary_data = b'Here we have some more data'

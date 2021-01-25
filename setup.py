@@ -10,12 +10,8 @@ REQUIRES_PYTHON = '>=3.6.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'pandas',
     'urllib3',
-    'boto3',
-    'botocore',
     'pyarrow',
-    's3fs',
     'docopt',
     'python-dotenv',
     'awswrangler'
