@@ -4,7 +4,7 @@ import json
 import urllib3
 
 
-def handle_get_request(url, headers=None):
+def handle_get_request(url, fields=None, headers=None):
 	"""Requests data from the provided URL via a get request
 
 	Parameters
@@ -23,7 +23,16 @@ def handle_get_request(url, headers=None):
 		Description
 	"""
 	http = urllib3.PoolManager()
-	r = http.request('GET', url, headers=headers)
+	if fields:
+		r = http.request(
+			'GET',
+			url, headers=headers, fields=fields
+		)
+	else:
+		r = http.request(
+			'GET',
+			url, headers=headers
+		)
 	if r.status != 200:
 		print(r.data)
 		raise SystemExit
@@ -31,7 +40,7 @@ def handle_get_request(url, headers=None):
 
 
 def handle_post_request(url, body=None, headers=None, fields=None):
-	"""Requests data from the provided URL via a get request
+	"""Requests data from the provided URL via a post request
 	Parameters
 	----------
 	url : String
