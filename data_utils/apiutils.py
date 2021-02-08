@@ -4,7 +4,7 @@ import json
 import urllib3
 
 
-def handle_get_request(url, fields=None, headers=None):
+def handle_get_request(url, headers=None, fields=None):
 	"""Requests data from the provided URL via a get request
 
 	Parameters
