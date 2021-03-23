@@ -361,13 +361,35 @@ def parse_file_to_json(raw_events):
         return None
 
 
-def check_start_stop_date(start_date, stop_date):
+def check_start_stop_date(start_date=None, stop_date=None, today=False, shift_in_days=None):
+    # the behaviour of the shift-parameter is different if today is true or false.
+    # if today is true, the function will return only an interval of one day based on the current date.
+    # if today is false, the function will return an interval based on yesterday.
+    if today:
+        if shift_in_days:
+            try:
+                days = int(shift_in_days)
+            except Exception as e:
+                print ("shift_in_days is not an integer: %s" % e)
+                days = 0
+        else:
+            days = 0
+    else:
+        if shift_in_days:
+            try:
+                days = int(shift_in_days) + 1
+            except Exception as e:
+                print ("shift_in_days is not an integer: %s" % e)
+                days = 1
+        else:
+            days = 1
+
     if start_date:
         try:
             start_date = datetime.strptime(start_date, '%Y-%m-%d')
         except Exception as e:
             print ("Parsing Error for Date:%s" % e)
-            start_date = dt.datetime.now() - dt.timedelta(days=1)
+            start_date = dt.datetime.now() - dt.timedelta(days=days)
         if stop_date:
             try:
                 stop_date = datetime.strptime(stop_date, '%Y-%m-%d')
@@ -378,10 +400,15 @@ def check_start_stop_date(start_date, stop_date):
                 return start_date, start_date
         else:
             return start_date, start_date
-    else:
-        start_date = dt.datetime.now() - dt.timedelta(days=1)
-        # there is no stop date so we return only one day
+    elif today:
+        start_date = dt.datetime.now() - dt.timedelta(days=days)
         return start_date, start_date
+    else:
+        start_date = dt.datetime.now() - dt.timedelta(days=days)
+        stop_date = dt.datetime.now() - dt.timedelta(days=1)
+        # there is no start date so we return only one day
+        # if there is a shift in days we extract all days from start-date minus shift-in-days until yesterday
+        return start_date, stop_date
 
 
 def create_time_partition(partition_date, month=False):
