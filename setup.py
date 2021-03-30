@@ -15,10 +15,7 @@ REQUIRED = [
     'python-dotenv',
     'awswrangler',
     's3fs==0.4.2',
-    'moto==1.3.14',
-    'botocore==1.17.44',
-    'boto3==1.14.0',
-    'pandas==1.1.0'
+    'moto==1.3.14'
 ]
 
 # Import the README and use it as the long-description.
