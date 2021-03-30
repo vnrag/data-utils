@@ -19,13 +19,7 @@ class SSMBase(object):
 
     def __init__(self, external_sess=None):
         self.ssm_conn = external_sess if external_sess else self.ssm_connect()
-        self.logger = logging.getLogger()
-        self.logger.addHandler(logging.StreamHandler())
-        self.logger.setLevel(logging.CRITICAL)
-        logging.getLogger("boto3").setLevel(logging.CRITICAL)
-        logging.getLogger("botocore").setLevel(logging.CRITICAL)
-        logging.getLogger("ssm").setLevel(logging.CRITICAL)
-        logging.getLogger("urllib3").setLevel(logging.CRITICAL)
+        self.logger = gu.get_logger(__name__)
 
     def ssm_connect(self):
         session = boto3.Session()
@@ -73,13 +67,7 @@ class S3Base(object):
         ----------
         """
         self.s3_connect()
-        self.logger = logging.getLogger()
-        self.logger.addHandler(logging.StreamHandler())
-        self.logger.setLevel(logging.CRITICAL)
-        logging.getLogger("boto3").setLevel(logging.CRITICAL)
-        logging.getLogger("botocore").setLevel(logging.CRITICAL)
-        logging.getLogger("s3transfer").setLevel(logging.CRITICAL)
-        logging.getLogger("urllib3").setLevel(logging.CRITICAL)
+        self.logger = gu.get_logger(__name__)
 
     def s3_connect(self):
         """
@@ -146,10 +134,10 @@ class S3Base(object):
             else:
                 return None
         except botocore.exceptions.ClientError as e:
-            logging.warning(
+            self.logger.warning(
                 f"The following error occured while loading {key} from bucket {bucket}: {e}")
             if e.response["Error"]["Code"] == "404":
-                logging.warning("The object does not exist.")
+                self.logger.warning("The object does not exist.")
             return []
 
     def load_file_from_s3(self, bucket, key):
@@ -165,10 +153,10 @@ class S3Base(object):
             else:
                 return None
         except botocore.exceptions.ClientError as e:
-            logging.warning(
+            self.logger.warning(
                 "The following error occured while loading %s from bucket %s: %s" % (key, bucket, e))
             if e.response["Error"]["Code"] == "404":
-                logging.warning("The object does not exist.")
+                self.logger.warning("The object does not exist.")
             return None
 
     def load_json_from_s3(self, bucket, key):
@@ -185,7 +173,7 @@ class S3Base(object):
             try:
                 return json.loads(binary_data.decode("utf-8"))
             except Exception as e:
-                logging.critical(
+                self.logger.critical(
                     "could not convert %s, Exception: %s" % (key, e))
         else:
             return None
@@ -194,7 +182,7 @@ class S3Base(object):
         try:
             return wr.s3.read_parquet(s3_uri)
         except Exception as e:
-            logging.critical(
+            self.logger.critical(
                 f"couldn't read paruqet file {s3_uri}, Exception {e}")
 
     def upload_parquet_with_wrangler(self, s3_uri, context):
@@ -205,7 +193,7 @@ class S3Base(object):
             )
             print(f"---- File uploaded to {s3_uri} ----")
         except botocore.exceptions.ClientError as e:
-            logging.critical(f"couldn't upload to {s3_uri}, error: {e}")
+            self.logger.critical(f"couldn't upload to {s3_uri}, error: {e}")
 
     def upload_parquet_to_s3(self, s3_uri, parquet_context, use_deprecated_int96_timestamps=False):
         """Saves the provided Pandas Dataframe to the provided s3 URI in parquet format

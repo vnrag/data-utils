@@ -13,7 +13,7 @@ def test_get_unix_timestamp():
     unix_time = gu.get_unix_timestamp(test_date)
     
     assert isinstance(unix_time, int)
-    assert unix_time == 1577836800
+    assert unix_time == 1577833200
     
 def test_create_data_frame():
     """Test function for create_data_frame() function in generalutils
