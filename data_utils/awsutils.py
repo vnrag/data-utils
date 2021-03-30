@@ -19,7 +19,7 @@ class SSMBase(object):
 
     def __init__(self, external_sess=None):
         self.ssm_conn = external_sess if external_sess else self.ssm_connect()
-        self.logger = gu.get_logger(__name__)
+        self.logger = gu.get_logger("SSMBase")
 
     def ssm_connect(self):
         session = boto3.Session()
@@ -67,7 +67,7 @@ class S3Base(object):
         ----------
         """
         self.s3_connect()
-        self.logger = gu.get_logger(__name__)
+        self.logger = gu.get_logger("S3Base")
 
     def s3_connect(self):
         """
