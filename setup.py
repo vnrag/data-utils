@@ -13,12 +13,12 @@ REQUIRED = [
     'urllib3',
     'docopt',
     'python-dotenv',
-    'awswrangler'
-    'pyarrow==1.0.0'
-    's3fs==0.4.2'
-    'moto==1.3.14'
-    'botocore==1.17.44'
-    'boto3==1.14.0'
+    'awswrangler',
+    'pyarrow==1.0.0',
+    's3fs==0.4.2',
+    'moto==1.3.14',
+    'botocore==1.17.44',
+    'boto3==1.14.0',
     'pandas==1.1.0'
 ]
 
