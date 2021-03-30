@@ -14,7 +14,6 @@ REQUIRED = [
     'docopt',
     'python-dotenv',
     'awswrangler',
-    'pyarrow',
     's3fs==0.4.2',
     'moto==1.3.14',
     'botocore==1.17.44',
