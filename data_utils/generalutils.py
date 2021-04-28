@@ -7,8 +7,8 @@ from datetime import datetime
 import hashlib
 import sys
 import json
-from datetime import datetime
 import datetime as dt
+from pytz import timezone
 
 if sys.version_info[0] >= 3:
     unicode = str
@@ -371,10 +371,25 @@ def parse_file_to_json(raw_events):
         return None
 
 
-def check_start_stop_date(start_date=None, stop_date=None, today=False, shift_in_days=None):
+def check_start_stop_date(start_date=None, stop_date=None, today=False, shift_in_days=None, to_timezone='UTC'):
+    """returns a pair of timestamps as start- and stop-date
+
+    Parameters
+    ----------
+    start_date : string %Y-m-d
+    stop_date : string %Y-m-d
+    today : boolean
+    shift_in_days : integer
+    timezone : string
+
+    Returns
+    -------
+    array
+    """
     # the behaviour of the shift-parameter is different if today is true or false.
     # if today is true, the function will return only an interval of one day based on the current date.
     # if today is false, the function will return an interval based on yesterday.
+    tz = timezone(to_timezone)
     if today:
         if shift_in_days:
             try:
@@ -399,7 +414,7 @@ def check_start_stop_date(start_date=None, stop_date=None, today=False, shift_in
             start_date = datetime.strptime(start_date, '%Y-%m-%d')
         except Exception as e:
             print ("Parsing Error for Date:%s" % e)
-            start_date = dt.datetime.now() - dt.timedelta(days=days)
+            start_date = dt.datetime.now(tz) - dt.timedelta(days=days)
         if stop_date:
             try:
                 stop_date = datetime.strptime(stop_date, '%Y-%m-%d')
@@ -411,11 +426,11 @@ def check_start_stop_date(start_date=None, stop_date=None, today=False, shift_in
         else:
             return start_date, start_date
     elif today:
-        start_date = dt.datetime.now() - dt.timedelta(days=days)
+        start_date = dt.datetime.now(tz) - dt.timedelta(days=days)
         return start_date, start_date
     else:
-        start_date = dt.datetime.now() - dt.timedelta(days=days)
-        stop_date = dt.datetime.now() - dt.timedelta(days=1)
+        start_date = dt.datetime.now(tz) - dt.timedelta(days=days)
+        stop_date = dt.datetime.now(tz) - dt.timedelta(days=1)
         # there is no start date so we return only one day
         # if there is a shift in days we extract all days from start-date minus shift-in-days until yesterday
         return start_date, stop_date

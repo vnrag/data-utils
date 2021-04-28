@@ -18,7 +18,8 @@ REQUIRED = [
     's3fs',
     'docopt',
     'python-dotenv',
-    'awswrangler'
+    'awswrangler',
+    'pytz'
 ]
 
 # Import the README and use it as the long-description.

@@ -5,6 +5,9 @@ import pytest
 import pandas as pd
 import datetime
 import IPython
+from freezegun import freeze_time
+from pytz import timezone
+
 
 def test_get_unix_timestamp():
     """Test function for get_unix_timestamp() function in generalutils
@@ -68,12 +71,52 @@ def test_verify_and_convert_bool():
     assert test_bool == False
 
 def test_check_start_stop_date():
+    """Test data-type of the result
+    """
     start_str = "2019-11-11"
     stop_str = "2019-11-12"
     start_date, stop_date = gu.check_start_stop_date(start_str,stop_str)
     # assert 'datetime.datetime' in type(start_date)
     assert type(start_date) == datetime.datetime
     assert type(stop_date) == datetime.datetime
+
+@freeze_time("2021-06-11 00:00:00")
+def test_check_start_stop_date_timezone_conversion_summertime():
+    """Test timezone-conversion
+    """
+    start_date, stop_date = gu.check_start_stop_date()
+    assert type(start_date) == datetime.datetime
+    assert type(stop_date) == datetime.datetime
+    assert start_date.strftime("%Y-%m-%d %H:%M:%S") == '2021-06-10 00:00:00'
+
+    start_date, stop_date = gu.check_start_stop_date(to_timezone='Europe/Berlin')
+    assert type(start_date) == datetime.datetime
+    assert type(stop_date) == datetime.datetime
+    assert start_date.strftime("%Y-%m-%d %H:%M:%S") == '2021-06-10 02:00:00'
+
+    start_date, stop_date = gu.check_start_stop_date(today=True, to_timezone='Europe/Berlin')
+    assert type(start_date) == datetime.datetime
+    assert type(stop_date) == datetime.datetime
+    assert start_date.strftime("%Y-%m-%d %H:%M:%S") == '2021-06-11 02:00:00'
+
+@freeze_time("2020-12-11 00:00:00")
+def test_check_start_stop_date_timezone_conversion_wintertime():
+    """Test timezone-conversion
+    """
+    start_date, stop_date = gu.check_start_stop_date()
+    assert type(start_date) == datetime.datetime
+    assert type(stop_date) == datetime.datetime
+    assert start_date.strftime("%Y-%m-%d %H:%M:%S") == '2020-12-10 00:00:00'
+
+    start_date, stop_date = gu.check_start_stop_date(to_timezone='Europe/Berlin')
+    assert type(start_date) == datetime.datetime
+    assert type(stop_date) == datetime.datetime
+    assert start_date.strftime("%Y-%m-%d %H:%M:%S") == '2020-12-10 01:00:00'
+
+    start_date, stop_date = gu.check_start_stop_date(today=True, to_timezone='Europe/Berlin')
+    assert type(start_date) == datetime.datetime
+    assert type(stop_date) == datetime.datetime
+    assert start_date.strftime("%Y-%m-%d %H:%M:%S") == '2020-12-11 01:00:00'
 
 def test_create_time_partition():
     """Test function for create_time_partition() function in generalutils
