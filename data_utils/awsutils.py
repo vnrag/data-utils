@@ -23,7 +23,7 @@ class SSMBase(object):
 
     def ssm_connect(self):
         session = boto3.Session()
-        ssm_conn = session.client("ssm")
+        ssm_conn = session.client("ssm", region_name='eu-central-1')
         return ssm_conn
 
     def get_ssm_parameter(self, name, encoded=False):
@@ -74,7 +74,7 @@ class S3Base(object):
         Wrapper to create a session at AWS S3 with given authorization-key
         """
         session = boto3.Session()
-        self.s3_conn = session.resource("s3")
+        self.s3_conn = session.resource("s3", region_name='eu-central-1')
         self.s3_fs = S3FileSystem()
 
     def create_s3_uri(self, bucket, key, tmpFileName, FileType=None):
