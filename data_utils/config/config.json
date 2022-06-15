@@ -8,6 +8,7 @@
   "epi_campaign_report_url": "https://api.campaign.episerver.net/rest/{client_id}/smartcampaigns/{campaign_id}/report",
   "epi_mailing_folder_url": "https://api.campaign.episerver.net/rest/{client_id}/folders?type=mailing",
   "transactional_mail_url": "https://api.campaign.episerver.net/rest/{client_id}/transactionalmail?resultView=SUMMARY&sort=created",
+  "transactional_mail_report_url": "https://api.campaign.episerver.net/rest/{client_id}/transactionalmail/{transactional_mail_id}/report",
   "epi_folder_target_key": "provider=episerver/object=folder/partition_client_id={client_id}/folder.parquet",
   "epi_campaign_target_key": "provider=episerver/object=campaign/partition_client_id={client_id}/campaign.parquet",
   "epi_blacklist_target_key": "provider=episerver/object=blacklist/partition_client_id={client_id}/blacklist.parquet",
