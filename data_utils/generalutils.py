@@ -103,6 +103,22 @@ def flatten_list_col(df, index_cols):
     return new_df
 
 
+def explode_col_in_df(df, col):
+    """
+    Explodes the given column of the dataframe and recreates the column
+    with new values
+    """
+    df = df.explode(col)
+    col_values = list(df[col].values)
+    new_values = []
+    for val in col_values:
+        new_val = val if str(val) == 'nan' else str(val)
+        new_val = new_val if new_val else None
+        new_values.append(new_val)
+    df[col] = new_values
+    return df
+
+
 def flatten_list(val):
     val = ','.join(list(map(lambda x: str(x), val)))
     return val

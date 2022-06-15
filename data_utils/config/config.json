@@ -7,11 +7,15 @@
   "epi_mailing_id_folder_url": "https://api.campaign.episerver.net/rest/{client_id}/folders?entityId={mailing_id}",
   "epi_campaign_report_url": "https://api.campaign.episerver.net/rest/{client_id}/smartcampaigns/{campaign_id}/report",
   "epi_mailing_folder_url": "https://api.campaign.episerver.net/rest/{client_id}/folders?type=mailing",
+  "transactional_mail_url": "https://api.campaign.episerver.net/rest/{client_id}/transactionalmail?resultView=SUMMARY&sort=created",
   "epi_folder_target_key": "provider=episerver/object=folder/partition_client_id={client_id}/folder.parquet",
   "epi_campaign_target_key": "provider=episerver/object=campaign/partition_client_id={client_id}/campaign.parquet",
   "epi_blacklist_target_key": "provider=episerver/object=blacklist/partition_client_id={client_id}/blacklist.parquet",
   "epi_campaign_report_target_key": "provider=episerver/object=campaign-report/partition_client_id={client_id}/campaign-report.parquet",
   "epi_mailing_target_key": "provider=episerver/object=mailing/partition_client_id={client_id}/mailing.parquet",
   "epi_mailing_report_target_key": "provider=episerver/object=mailing-report/partition_client_id={client_id}/partition_year={year}/{month}/{day}/mailing-report.parquet",
-  "epi_array_list":["recipientLists.recipientListIds", "childrenIds", "folderIds"]
+  "transaction_mail_key": "provider=episerver/object=transactional_mail/partition_client_id={client_id}/transactional_mail.parquet",
+  "transaction_mail_report_key": "provider=episerver/object=transactional_mail_report/partition_client_id={client_id}/transactional_mail_report.parquet",
+  "epi_array_list":["recipientLists.recipientListIds", "childrenIds", "folderIds", "attachmentIds"],
+  "int_col": ["recipientLists.recipientListIds", "childrenIds", "folderIds"]
 }
