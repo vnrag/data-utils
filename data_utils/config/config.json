@@ -24,5 +24,5 @@
   "transaction_mail_report_key": "provider=episerver/object=transactional_mail_report/partition_client_id={client_id}/transactional_mail_report.parquet",
   "epi_array_list":["recipientLists.recipientListIds", "childrenIds", "folderIds", "attachmentIds"],
   "int_col": ["recipientLists.recipientListIds", "childrenIds", "folderIds"],
-  "epi_recipientlist_attributes": ["affiliate", "reg_source", "created", "modified", "bmOptinSource", "bmOptinFinishedDate"]
+  "epi_recipient_list_attributes": ["affiliate", "reg_source", "created", "modified", "bmOptinSource", "bmOptinFinishedDate"]
 }
