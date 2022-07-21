@@ -9,7 +9,11 @@
   "epi_mailing_folder_url": "https://api.campaign.episerver.net/rest/{client_id}/folders?type=mailing",
   "transactional_mail_url": "https://api.campaign.episerver.net/rest/{client_id}/transactionalmail?resultView=SUMMARY&sort=created",
   "transactional_mail_report_url": "https://api.campaign.episerver.net/rest/{client_id}/transactionalmail/{transactional_mail_id}/report",
-  "blacklist_url": "https://api.campaign.episerver.net/rest/{client_id}/blacklistentries?offset=0&limit=9999",
+  "epi_blacklist_url": "https://api.campaign.episerver.net/rest/{client_id}/blacklistentries?offset=0&limit=9999",
+  "epi_recipient_list_url": "https://api.campaign.episerver.net/rest/{client_id}/recipientlists?includeTestLists=true&sort=created",
+  "epi_recipient_list_by_id": "https://api.campaign.episerver.net/rest/{client_id}/recipientlists/{recipient_list_id}",
+  "epi_recipients_with_attributes": "https://api.campaign.episerver.net/rest/{client_id}/recipients/{recipient_list_id}?attributeNames={attribute_names}",
+  "epi_recipient_list_key": "provider=episerver/object=recipient_list/partition_client_id={client_id}/recipient_list.parquet",
   "epi_folder_target_key": "provider=episerver/object=folder/partition_client_id={client_id}/folder.parquet",
   "epi_campaign_target_key": "provider=episerver/object=campaign/partition_client_id={client_id}/campaign.parquet",
   "epi_blacklist_target_key": "provider=episerver/object=blacklist/partition_client_id={client_id}/blacklist.parquet",
@@ -19,5 +23,6 @@
   "transaction_mail_key": "provider=episerver/object=transactional_mail/partition_client_id={client_id}/transactional_mail.parquet",
   "transaction_mail_report_key": "provider=episerver/object=transactional_mail_report/partition_client_id={client_id}/transactional_mail_report.parquet",
   "epi_array_list":["recipientLists.recipientListIds", "childrenIds", "folderIds", "attachmentIds"],
-  "int_col": ["recipientLists.recipientListIds", "childrenIds", "folderIds"]
+  "int_col": ["recipientLists.recipientListIds", "childrenIds", "folderIds"],
+  "epi_recipientlist_attributes": ["affiliate", "reg_source", "created", "modified", "bmOptinSource", "bmOptinFinishedDate"]
 }
