@@ -35,7 +35,7 @@ def handle_get_request(url, headers=None, fields=None):
 		)
 	if r.status != 200:
 		print(r.data)
-		raise SystemExit
+		return None
 	return json.loads(r.data.decode('utf-8'))
 
 
@@ -77,5 +77,5 @@ def handle_post_request(url, body=None, headers=None, fields=None):
 
 	if r.status != 200:
 		print(r.data)
-		raise SystemExit
+		return None
 	return json.loads(r.data.decode('utf-8'))
