@@ -34,7 +34,7 @@ def handle_get_request(url, headers=None, fields=None):
 			url, headers=headers
 		)
 	if r.status != 200:
-		print(f"----- Error on POST Request: Error: {r.data} -----")
+		print(f"----- Error on GET Request: Error: {r.data} -----")
 		return None
 	return json.loads(r.data.decode('utf-8'))
 
