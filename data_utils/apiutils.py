@@ -34,7 +34,7 @@ def handle_get_request(url, headers=None, fields=None):
 			url, headers=headers
 		)
 	if r.status != 200:
-		print(f"----- Error on GET Request: Error: {r.data} -----")
+		print(f"----- Something Went Wrong on GET Request: Response: {r.data} -----")
 		return None
 	return json.loads(r.data.decode('utf-8'))
 
@@ -76,6 +76,6 @@ def handle_post_request(url, body=None, headers=None, fields=None):
 		)
 
 	if r.status != 200:
-		print(f"----- Error on POST Request: Error: {r.data} -----")
+		print(f"----- Something Went Wrong on POST Request: Response: {r.data} -----")
 		return None
 	return json.loads(r.data.decode('utf-8'))
